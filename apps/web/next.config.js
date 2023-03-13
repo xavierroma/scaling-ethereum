@@ -3,6 +3,12 @@ const nextConfig = {
   experimental: {
     appDir: true,
   },
-}
 
-module.exports = nextConfig
+  resolve: {
+    fallback: {
+      fs: false,
+    },
+  },
+};
+
+module.exports = nextConfig;

@@ -44,3 +44,7 @@ yarn-error.log*
 
 # typescript generated
 apps/web/next-env.d.ts
+
+# IDEs
+.idea
+.vscode

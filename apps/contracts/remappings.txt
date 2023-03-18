@@ -1,0 +1,2 @@
+permit2/=lib/permit2/src
+@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts

@@ -17,6 +17,8 @@ import {
 import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from "wagmi/providers/public";
 
+import '@/styles/global.css'
+
 const { chains, provider } = configureChains(
   [mainnet, avalanche, arbitrum, bsc, gnosis, optimism, polygon],
   [alchemyProvider({ apiKey: process.env.ALCHEMY_API_KEY! }), publicProvider()]

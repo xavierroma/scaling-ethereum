@@ -1,0 +1,22 @@
+{
+  "name": "scaling-ethereum",
+  "packageManager": "pnpm@6.11.0",
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xavierroma/scaling-ethereum.git"
+  },
+  "devDependencies": {
+    "@types/node": "18.15.2",
+    "eslint": "8.36.0",
+    "eslint-config-custom": "workspace:*",
+    "prettier": "2.8.4",
+    "turbo": "latest",
+    "typescript": "4.9.5"
+  }
+}

@@ -3,26 +3,19 @@ pragma solidity ^0.8.13;
 
 import "forge-std/Test.sol";
 
-import {PermitSigUtils} from "./PermitSigUtils.sol";
+import {PermitUtils} from "./PermitUtils.sol";
 
 import {Signature, Permit} from "../../src/static/Structs.sol";
 
 abstract contract Setup is Test {
-    PermitSigUtils internal permitSigUtils = new PermitSigUtils();
-
     function computePermitSignature(
         Permit memory permit,
         address tokenAddress,
         uint256 _ownerPkey
     ) internal returns (Signature memory signature) {
-        bytes32 domainSeparator = permitSigUtils.getDomainSeparator(
-            tokenAddress
-        );
+        PermitUtils permitUtils = new PermitUtils(tokenAddress);
 
-        bytes32 digest = permitSigUtils.getTypedDataHashPermit(
-            permit,
-            domainSeparator
-        );
+        bytes32 digest = permitUtils.getTypedDataHashPermit(permit);
 
         (uint8 v, bytes32 r, bytes32 s) = vm.sign(_ownerPkey, digest);
 

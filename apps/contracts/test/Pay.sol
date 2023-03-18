@@ -25,9 +25,12 @@ contract PayTest is Test, Setup {
         (address source, uint256 sourcePkey) = makeAddrAndKey("source");
         address receiver = 0x2DB6BDB71209AAb73942C0F924DDEE0202e36310;
 
-        deal(address(USDC), source, amount);
+        deal(USDC, source, amount);
 
         vm.startPrank(source);
+
+        assertEq(ContractUSDC.balanceOf(source), amount);
+        assertEq(ContractUSDC.allowance(source, address(pay)), 0);
 
         Permit memory permit = Permit(
             source,

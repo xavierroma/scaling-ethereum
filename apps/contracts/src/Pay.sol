@@ -15,8 +15,8 @@ contract Pay {
     }
 
     function pay(Permit calldata permit, Signature memory signature) public {
-        uint256 amount = 100_000_000;
-        address receiver = 0x2DB6BDB71209AAb73942C0F924DDEE0202e36310;
+        uint256 amount = 100_000_000; // TODO: obtain from registry
+        address receiver = 0x2DB6BDB71209AAb73942C0F924DDEE0202e36310; // TODO: obtain from registry
 
         USDCPermit.permit(
             msg.sender,

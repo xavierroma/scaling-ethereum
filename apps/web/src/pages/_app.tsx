@@ -5,13 +5,20 @@ import "@fontsource/inter/700.css";
 import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import "@rainbow-me/rainbowkit/styles.css";
 import { AppProps } from "next/app";
-import { configureChains, createClient, WagmiConfig } from "wagmi";
-import { gnosis } from "wagmi/chains";
+import { configureChains, createClient, mainnet, WagmiConfig } from "wagmi";
+import {
+  arbitrum,
+  avalanche,
+  bsc,
+  gnosis,
+  optimism,
+  polygon,
+} from "wagmi/chains";
 import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from "wagmi/providers/public";
 
 const { chains, provider } = configureChains(
-  [gnosis],
+  [mainnet, avalanche, arbitrum, bsc, gnosis, optimism, polygon],
   [alchemyProvider({ apiKey: process.env.ALCHEMY_API_KEY! }), publicProvider()]
 );
 

@@ -11,22 +11,28 @@ contract RegistryTest is Test {
         registry = new Registry();
     }
 
-    function generatePayRequest() private pure returns(Registry.PayRequest memory) {
-        Registry.PayRequestSplit[] memory splits = new Registry.PayRequestSplit[](2);
-        splits[0]= Registry.PayRequestSplit({ 
-                payer: 0x1235206bbD039E7B0592d8918820024E2A7437b9,
-                amount: 5,
-                isPaid: false
-             });
-        splits[1]= Registry.PayRequestSplit({ 
-                payer: 0xAbc5206BbD039e7B0592d8918820024E2A7437B9,
-                amount: 5,
-                isPaid: false
-             });
-        return Registry.PayRequest({
-            description: "request description",
-            splits: splits
+    function generatePayRequest()
+        private
+        pure
+        returns (Registry.PayRequest memory)
+    {
+        Registry.PayRequestSplit[]
+            memory splits = new Registry.PayRequestSplit[](2);
+        splits[0] = Registry.PayRequestSplit({
+            payer: 0x1235206bbD039E7B0592d8918820024E2A7437b9,
+            amount: 5,
+            isPaid: false
         });
+        splits[1] = Registry.PayRequestSplit({
+            payer: 0xAbc5206BbD039e7B0592d8918820024E2A7437B9,
+            amount: 5,
+            isPaid: false
+        });
+        return
+            Registry.PayRequest({
+                description: "request description",
+                splits: splits
+            });
     }
 
     function test_Set() public {
@@ -36,14 +42,13 @@ contract RegistryTest is Test {
 
         bytes32 id1 = "request-1";
         Registry.PayRequest memory req1 = generatePayRequest();
-        
+
         registry.set(id1, req1);
         ids = registry.getRequestsIds(msg.sender);
 
         assertEq(registry.get(id1).splits.length, 2);
         assertEq(ids.length, 1);
         assertEq(ids[0], id1);
-
 
         bytes32 id2 = "request-2";
         Registry.PayRequest memory req2 = generatePayRequest();

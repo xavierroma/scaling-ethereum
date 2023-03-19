@@ -6,19 +6,19 @@ import "@openzeppelin/contracts/token/ERC20/extensions/IERC20Permit.sol";
 import {Permit, Signature} from "./static/Structs.sol";
 
 contract Pay {
-    IERC20 public USDC;
-    IERC20Permit public USDCPermit;
+    IERC20 public token;
+    IERC20Permit public tokenPermit;
 
     constructor(address _token) {
-        USDC = IERC20(_token);
-        USDCPermit = IERC20Permit(_token);
+        token = IERC20(_token);
+        tokenPermit = IERC20Permit(_token);
     }
 
     function pay(Permit calldata permit, Signature memory signature) public {
         uint256 amount = 100_000_000; // TODO: obtain from registry
         address receiver = 0x2DB6BDB71209AAb73942C0F924DDEE0202e36310; // TODO: obtain from registry
 
-        USDCPermit.permit(
+        tokenPermit.permit(
             msg.sender,
             address(this),
             amount,
@@ -27,6 +27,6 @@ contract Pay {
             signature.r,
             signature.s
         );
-        USDC.transferFrom(msg.sender, receiver, amount);
+        token.transferFrom(msg.sender, receiver, amount);
     }
 }

@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  html {
+    font-family: 'Inter', sans-serif;
+    font-smoothing: antialiased;
+    -webkit-font-smoothing: antialiased;
+  }
+}

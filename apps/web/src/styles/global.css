@@ -8,4 +8,12 @@
     font-smoothing: antialiased;
     -webkit-font-smoothing: antialiased;
   }
+
+  html,
+  body,
+  body > div:first-child,
+  div#__next,
+  div#__next > div {
+    height: 100%;
+  }
 }

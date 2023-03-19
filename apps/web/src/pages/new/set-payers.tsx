@@ -5,7 +5,7 @@ import { ReactElement } from "react";
 const SetPayers: NextPageWithLayout = () => {
   return (
     <>
-      <h1 className="text-3xl font-bold">Set Payers</h1>
+      <h1>Set Payers</h1>
     </>
   );
 };

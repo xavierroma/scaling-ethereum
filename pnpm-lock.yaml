@@ -30,6 +30,7 @@ importers:
       '@types/react': 18.0.28
       '@types/react-dom': 18.0.11
       autoprefixer: ^10.4.14
+      cryptocurrency-icons: ^0.18.1
       eslint-config-custom: workspace:*
       ethers: 5.7.2
       next: 13.2.4
@@ -41,6 +42,7 @@ importers:
       typechain: ^8.1.1
       typescript: 4.9.5
       wagmi: ^0.12.1
+      zustand: ^4.3.6
     dependencies:
       '@emotion/react': 11.10.6_pmekkgnqduwlme35zpnqhenc34
       '@emotion/styled': 11.10.6_oouaibmszuch5k64ms7uxp2aia
@@ -48,11 +50,13 @@ importers:
       '@ethersproject/providers': 5.7.2
       '@fontsource/inter': 4.5.15
       '@rainbow-me/rainbowkit': 0.12.1_mhfhsvzrty3vkdbekd4gabf77a
+      cryptocurrency-icons: 0.18.1
       ethers: 5.7.2
       next: 13.2.4_hrdbe576m4w26u2yfpqpvbxyky
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       wagmi: 0.12.1_nqkyscwr4qtpcrqlc4styhzl6e
+      zustand: 4.3.6_react@18.2.0
     devDependencies:
       '@typechain/ethers-v5': 10.2.0_kuvqdvnhbslgxdpi2awxjzdvhe
       '@types/react': 18.0.28
@@ -2729,6 +2733,10 @@ packages:
       path-key: 3.1.1
       shebang-command: 2.0.0
       which: 2.0.2
+
+  /cryptocurrency-icons/0.18.1:
+    resolution: {integrity: sha512-dvR5O8JOmav3559Yb0Igpkia+3vpt/aeNvMu5ZIVUG2Bzpq9wNcOJRIQas49XJrPjtZ98GAEn3aDQO+w7uhS2w==}
+    dev: false
 
   /css-what/5.1.0:
     resolution: {integrity: sha512-arSMRWIIFY0hV8pIxZMEfmMI47Wj3R/aWpZDDxWYCPEiOMv6tfOrnpDtgxBYPEQD4V0Y/958+1TdC3iWTFcUPw==}

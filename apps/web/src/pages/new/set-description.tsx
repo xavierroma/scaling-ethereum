@@ -5,7 +5,7 @@ import { ReactElement } from "react";
 const SetDescription: NextPageWithLayout = () => {
   return (
     <>
-      <h1 className="text-3xl font-bold">Set Description</h1>
+      <h1>Set Description</h1>
     </>
   );
 };

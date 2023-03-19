@@ -24,7 +24,7 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({ items, hasLogo }) => {
 
   return (
     <nav
-      className="flex text-sm font-medium text-gray-500 space-x-1 border rounded-xl p-2 px-4"
+      className="flex text-sm font-medium text-gray-500 space-x-1"
       aria-label="Breadcrumb"
     >
       {breadcrumbItems.map((item, index) => {
@@ -64,7 +64,7 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({ items, hasLogo }) => {
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  strokeWidth={2}
+                  strokeWidth={1}
                   d="M9 5l7 7-7 7"
                 />
               </svg>

@@ -30,7 +30,9 @@ importers:
       '@types/react': 18.0.28
       '@types/react-dom': 18.0.11
       autoprefixer: ^10.4.14
+      cryptocurrency-icons: ^0.18.1
       eslint-config-custom: workspace:*
+      ethereum-blockies-base64: ^1.0.2
       ethers: 5.7.2
       next: 13.2.4
       postcss: ^8.4.21
@@ -41,6 +43,7 @@ importers:
       typechain: ^8.1.1
       typescript: 4.9.5
       wagmi: ^0.12.1
+      zustand: ^4.3.6
     dependencies:
       '@emotion/react': 11.10.6_pmekkgnqduwlme35zpnqhenc34
       '@emotion/styled': 11.10.6_oouaibmszuch5k64ms7uxp2aia
@@ -48,11 +51,14 @@ importers:
       '@ethersproject/providers': 5.7.2
       '@fontsource/inter': 4.5.15
       '@rainbow-me/rainbowkit': 0.12.1_mhfhsvzrty3vkdbekd4gabf77a
+      cryptocurrency-icons: 0.18.1
+      ethereum-blockies-base64: 1.0.2
       ethers: 5.7.2
       next: 13.2.4_hrdbe576m4w26u2yfpqpvbxyky
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       wagmi: 0.12.1_nqkyscwr4qtpcrqlc4styhzl6e
+      zustand: 4.3.6_react@18.2.0
     devDependencies:
       '@typechain/ethers-v5': 10.2.0_kuvqdvnhbslgxdpi2awxjzdvhe
       '@types/react': 18.0.28
@@ -2730,6 +2736,10 @@ packages:
       shebang-command: 2.0.0
       which: 2.0.2
 
+  /cryptocurrency-icons/0.18.1:
+    resolution: {integrity: sha512-dvR5O8JOmav3559Yb0Igpkia+3vpt/aeNvMu5ZIVUG2Bzpq9wNcOJRIQas49XJrPjtZ98GAEn3aDQO+w7uhS2w==}
+    dev: false
+
   /css-what/5.1.0:
     resolution: {integrity: sha512-arSMRWIIFY0hV8pIxZMEfmMI47Wj3R/aWpZDDxWYCPEiOMv6tfOrnpDtgxBYPEQD4V0Y/958+1TdC3iWTFcUPw==}
     engines: {node: '>= 6'}
@@ -3440,6 +3450,12 @@ packages:
     resolution: {integrity: sha512-n+Re6Gu8XGyfFy1it0AwbD1x0MUzspQs0D5UiPs1fFPCr6WAwZM+vbIhXheBFrpgosqN9bs5PqlB4Q61U/QytQ==}
     dependencies:
       fast-safe-stringify: 2.1.1
+    dev: false
+
+  /ethereum-blockies-base64/1.0.2:
+    resolution: {integrity: sha512-Vg2HTm7slcWNKaRhCUl/L3b4KrB8ohQXdd5Pu3OI897EcR6tVRvUqdTwAyx+dnmoDzj8e2bwBLDQ50ByFmcz6w==}
+    dependencies:
+      pnglib: 0.0.1
     dev: false
 
   /ethers/5.7.2:
@@ -4764,6 +4780,10 @@ packages:
   /pngjs/5.0.0:
     resolution: {integrity: sha512-40QW5YalBNfQo5yRYmiw7Yz6TKKVr3h6970B2YE+3fQpsWcrbj1PzJgxeJ19DRQjhMbKPIuMY8rFaXc8moolVw==}
     engines: {node: '>=10.13.0'}
+    dev: false
+
+  /pnglib/0.0.1:
+    resolution: {integrity: sha512-95ChzOoYLOPIyVmL+Y6X+abKGXUJlvOVLkB1QQkyXl7Uczc6FElUy/x01NS7r2GX6GRezloO/ecCX9h4U9KadA==}
     dev: false
 
   /postcss-import/14.1.0_postcss@8.4.21:

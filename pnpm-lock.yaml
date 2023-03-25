@@ -32,6 +32,7 @@ importers:
       autoprefixer: ^10.4.14
       cryptocurrency-icons: ^0.18.1
       eslint-config-custom: workspace:*
+      ethereum-blockies-base64: ^1.0.2
       ethers: 5.7.2
       next: 13.2.4
       postcss: ^8.4.21
@@ -51,6 +52,7 @@ importers:
       '@fontsource/inter': 4.5.15
       '@rainbow-me/rainbowkit': 0.12.1_mhfhsvzrty3vkdbekd4gabf77a
       cryptocurrency-icons: 0.18.1
+      ethereum-blockies-base64: 1.0.2
       ethers: 5.7.2
       next: 13.2.4_hrdbe576m4w26u2yfpqpvbxyky
       react: 18.2.0
@@ -3450,6 +3452,12 @@ packages:
       fast-safe-stringify: 2.1.1
     dev: false
 
+  /ethereum-blockies-base64/1.0.2:
+    resolution: {integrity: sha512-Vg2HTm7slcWNKaRhCUl/L3b4KrB8ohQXdd5Pu3OI897EcR6tVRvUqdTwAyx+dnmoDzj8e2bwBLDQ50ByFmcz6w==}
+    dependencies:
+      pnglib: 0.0.1
+    dev: false
+
   /ethers/5.7.2:
     resolution: {integrity: sha512-wswUsmWo1aOK8rR7DIKiWSw9DbLWe6x98Jrn8wcTflTVvaXhAMaB5zGAXy0GYQEQp9iO1iSHWVyARQm11zUtyg==}
     dependencies:
@@ -4772,6 +4780,10 @@ packages:
   /pngjs/5.0.0:
     resolution: {integrity: sha512-40QW5YalBNfQo5yRYmiw7Yz6TKKVr3h6970B2YE+3fQpsWcrbj1PzJgxeJ19DRQjhMbKPIuMY8rFaXc8moolVw==}
     engines: {node: '>=10.13.0'}
+    dev: false
+
+  /pnglib/0.0.1:
+    resolution: {integrity: sha512-95ChzOoYLOPIyVmL+Y6X+abKGXUJlvOVLkB1QQkyXl7Uczc6FElUy/x01NS7r2GX6GRezloO/ecCX9h4U9KadA==}
     dev: false
 
   /postcss-import/14.1.0_postcss@8.4.21:

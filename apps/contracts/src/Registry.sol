@@ -13,34 +13,48 @@ pragma solidity ^0.8.13;
 */
 
 contract Registry {
+    struct Receipt {
+        uint56 id;
+        address owed;
+        uint256 timestamp;
+        uint256 amount;
+        ReceiptLine[] lines;
+        string description;
+    }
+    struct ReceiptLine {
+        address owes;
+        uint256 amount;
+    }
+
+    struct LedgerLine {
+        uint56 id;
+        uint8 operation;
+        address owed;
+        address owes;
+        uint256 amount;
+    }
+    struct Metadata {
+        uint56 id;
+        uint256 timestamp;
+        uint256 ledgerStartPosition;
+        string description;
+    }
+
     struct CreateReceiptLine {
         address owes;
         uint256 amount;
     }
-    struct Receipt {
-        uint256 id;
-        ReceiptLine[] lines;
-        string description;
-        uint timestamp;
-    }
-    struct ReceiptLine {
-        address owed;
-        address owes;
-        uint256 amount;
-        uint56 id;
-        uint8 operation;
-    }
-    struct Metadata {
-        string description;
-        uint timestamp;
-        uint56 id;
-        uint ledgerStartPosition;
-    }
+
     mapping(uint56 => Metadata) public metadata;
-    ReceiptLine[] public ledger;
+
+    LedgerLine[] public ledger;
     uint56 nextId = 0;
 
-    function getReceipt(uint56 id) public view returns (Receipt memory) {
+    function getReceipt(
+        uint56 id
+    ) public view returns (Receipt memory receipt) {
+        require(id < nextId, "id is not valid");
+
         Metadata memory meta = metadata[id];
         uint count = 0;
         for (uint i = meta.ledgerStartPosition; i < ledger.length; i++) {
@@ -48,68 +62,75 @@ contract Registry {
                 count++;
             }
         }
-        Receipt memory receipt = Receipt({
+        receipt = Receipt({
             id: meta.id,
+            owed: ledger[meta.ledgerStartPosition].owed,
             description: meta.description,
             timestamp: meta.timestamp,
-            lines: new ReceiptLine[](count)
+            lines: new ReceiptLine[](count),
+            amount: 0
         });
         for (uint i = meta.ledgerStartPosition; i < ledger.length; i++) {
-            if (ledger[i].id == id) {
-                receipt.lines[i - meta.ledgerStartPosition] = ledger[i];
-            }
+            if (ledger[i].id != id) break;
+
+            uint position = i - meta.ledgerStartPosition;
+            receipt.lines[position] = ReceiptLine({
+                owes: ledger[i].owes,
+                amount: ledger[i].amount
+            });
+            receipt.amount += ledger[i].amount;
         }
-        return receipt;
     }
 
     function getReceiptsByAddress(
         address addr
-    ) public view returns (Receipt[] memory) {
-        uint lastId = 0;
+    ) public view returns (Receipt[] memory receipts) {
         uint count = 0;
-        for (uint i = 0; i <= nextId; i++) {
+        for (uint i = 0; i < nextId; i++) {
             Receipt memory receipt = getReceipt(uint56(i));
-            for (uint j = 0; j < receipt.lines.length; j++) {
-                if (
-                    (receipt.lines[j].owed == addr ||
-                        receipt.lines[j].owes == addr) && receipt.id != lastId
-                ) {
+            if (receipt.owed == addr) {
+                count++;
+                continue;
+            }
+            for (uint line = 0; line < receipt.lines.length; line++) {
+                if (receipt.lines[line].owes == addr) {
                     count++;
                     break;
                 }
             }
         }
 
-        Receipt[] memory receipts = new Receipt[](lastId);
-        for (uint i = 0; i <= nextId; i++) {
+        receipts = new Receipt[](count);
+        uint position = 0;
+        for (uint i = 0; i < nextId; i++) {
             Receipt memory receipt = getReceipt(uint56(i));
-            for (uint j = 0; j < receipt.lines.length; j++) {
-                if (
-                    receipt.lines[j].owed == addr ||
-                    receipt.lines[j].owes == addr
-                ) {
-                    receipts[count] = receipt;
+            if (receipt.owed == addr) {
+                receipts[position++] = receipt;
+                continue;
+            }
+            for (uint line = 0; line < receipt.lines.length; line++) {
+                if (receipt.lines[line].owes == addr) {
+                    receipts[position++] = receipt;
+                    break;
                 }
             }
         }
-        Receipt[] memory filteredReceipts = new Receipt[](count);
-        for (uint i = 0; i < count; i++) {
-            filteredReceipts[i] = receipts[i];
-        }
-        return filteredReceipts;
     }
 
     function addReceipt(
         string memory description,
         CreateReceiptLine[] calldata lines
     ) public returns (uint56) {
+        require(lines.length > 0, "No lines provided");
+        require(bytes(description).length > 0, "No description provided");
+
         uint256 startPosition = ledger.length;
 
         for (uint i = 0; i < lines.length; i++) {
             ledger.push(
-                ReceiptLine({
-                    owed: lines[i].owes,
-                    owes: msg.sender,
+                LedgerLine({
+                    owes: lines[i].owes,
+                    owed: msg.sender,
                     amount: lines[i].amount,
                     id: nextId,
                     operation: 0

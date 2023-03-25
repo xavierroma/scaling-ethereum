@@ -28,8 +28,6 @@ contract SplitzTest is Test, ReceiptsUtils, PermitUtils {
         (address source, uint256 sourcePkey) = makeAddrAndKey("source");
         address receiver = 0x2DB6BDB71209AAb73942C0F924DDEE0202e36310;
 
-        vm.startPrank(source);
-
         Splitz.Permit memory permit = Splitz.Permit(
             source,
             address(splitz),
@@ -52,8 +50,10 @@ contract SplitzTest is Test, ReceiptsUtils, PermitUtils {
             owing,
             10
         );
+        vm.prank(receiver);
         uint56 receiptId = splitz.addReceipt("description", lines);
 
+        vm.prank(source);
         splitz.pay(receiptId, permit, signature);
     }
 

@@ -14,7 +14,7 @@ contract PermitUtils is Test {
         Splitz.Permit memory permit,
         address token,
         uint256 ownerPkey
-    ) internal returns (Splitz.Signature memory signature) {
+    ) internal view returns (Splitz.Signature memory signature) {
         bytes32 domainSeparator = IERC20Permit(token).DOMAIN_SEPARATOR();
         bytes32 digest = getTypedDataHashPermit(permit, domainSeparator);
 

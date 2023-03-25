@@ -63,8 +63,8 @@ contract RegistryTest is Test, ReceiptsUtils {
         assertEq(receipt.id, 0);
     }
 
-    function testFail_getReceipt_InvalidId() public {
-        Registry.Receipt memory receipt = registry.getReceipt(1000);
+    function testFail_getReceipt_InvalidId() public view {
+        registry.getReceipt(1000);
     }
 
     function test_getReceiptsByAddress() public {

@@ -21,7 +21,7 @@ const CreateRequestLayout: FC<PropsWithChildren> = ({ children }) => {
     () => [
       {
         title: "Amount",
-        description: amount ? `${amount} DAI` : '- DAI',
+        description: amount ? `${amount} DAI` : "- DAI",
         href: "/new/set-amount",
         step: Steps.SetAmounts,
       },
@@ -54,7 +54,7 @@ const CreateRequestLayout: FC<PropsWithChildren> = ({ children }) => {
   return (
     <AppLayout breadcrumb={[{ label: "Create Request" }]}>
       <div className="max-w-2xl flex flex-col flex-1 w-full ml-auto mr-auto">
-      {/*   <div className="overflow-x-auto p-4">
+        {/*   <div className="overflow-x-auto p-4">
           <Stepper>
             {steps.map(({ title, href, step, description }) => (
               <StepperStep
@@ -71,14 +71,14 @@ const CreateRequestLayout: FC<PropsWithChildren> = ({ children }) => {
         <div className="flex flex-1 flex-col gap-4 p-4">{children}</div>
 
         <div className="flex flex-col items-end justify-end gap-4 w-full p-4">
-          <Button
+          <Button.Primary
             disabled={!selectedStep?.description}
             onClick={() => {
               push(selectedStep?.href);
             }}
           >
             Next
-          </Button>
+          </Button.Primary>
         </div>
       </div>
     </AppLayout>

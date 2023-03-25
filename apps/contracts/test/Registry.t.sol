@@ -14,7 +14,7 @@ contract RegistryTest is Test {
     function generatePayRequest()
         private
         pure
-        returns (Registry.PayRequest memory)
+        returns (description string memory, splits Registry.PayRequestSplit[])
     {
         Registry.PayRequestSplit[]
             memory splits = new Registry.PayRequestSplit[](2);
@@ -35,37 +35,14 @@ contract RegistryTest is Test {
             });
     }
 
-    function test_Set() public {
-        vm.startPrank(msg.sender);
-        bytes32[] memory ids = registry.getRequestsIds(msg.sender);
-        assertEq(ids.length, 0);
-
-        bytes32 id1 = "request-1";
-        Registry.PayRequest memory req1 = generatePayRequest();
-
-        registry.set(id1, req1);
-        ids = registry.getRequestsIds(msg.sender);
-
-        assertEq(registry.get(id1).splits.length, 2);
-        assertEq(ids.length, 1);
-        assertEq(ids[0], id1);
-
-        bytes32 id2 = "request-2";
-        Registry.PayRequest memory req2 = generatePayRequest();
-
-        registry.set(id2, req2);
-        ids = registry.getRequestsIds(msg.sender);
-
-        assertEq(registry.get(id2).splits.length, 2);
-        assertEq(ids.length, 2);
-        assertEq(ids[1], id2);
-    }
-
-    function test_FailIf_IdExists() public {
-        bytes32 id = "test1";
-        Registry.PayRequest memory req = generatePayRequest();
-        registry.set(id, req);
-        vm.expectRevert("PayRequest with id already exists");
-        registry.set(id, req);
+    function test_addReceipt() public {
+        (string memory description, Registry.CreateReceiptLine[] calldata splits) = generatePayRequest();
+        vm.prank(msg.sender);
+        uint256 receiptId = registry.addReceipt(description, splits);
+        Registry.Receipt memory receipt = registry.getReceipt(receiptId);
+        assertEq(receipt.requestId, requestId);
+        assertEq(receipt.payer, request.splits[0].payer);
+        assertEq(receipt.amount, 5);
+        assertEq(receipt.isPaid, false);
     }
 }

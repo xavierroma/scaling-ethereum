@@ -10,7 +10,7 @@ const Index: NextPageWithLayout = () => {
       <h1 className="text-3xl font-bold">Dashboard</h1>
 
       <div className="flex gap-2">
-        <Link href="/new/select-chain" passHref>
+        <Link href="/new/request" passHref>
           <Button.Primary>Request Money</Button.Primary>
         </Link>
 

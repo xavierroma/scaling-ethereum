@@ -1,15 +1,17 @@
+import { ChainId, DEPLOYMENT_ADDRESSES } from "@/blockchain/constants";
 import { Splitz, Splitz__factory } from "@/blockchain/generated";
-import { useQuery, useSigner } from "wagmi";
+import { useChainId, useQuery, useSigner } from "wagmi";
 
 function useReceipts(address: string, options: { enabled?: boolean } = {}) {
   const { enabled = true } = options;
   const { data: signer } = useSigner();
+  const chainId = useChainId();
   return useQuery(
     ["balance", address],
     async () => {
       if (!signer) return;
       const splitz: Splitz = Splitz__factory.connect(
-        "0x58395A4d794928Fda2a30660ceC6467181c62498",
+        DEPLOYMENT_ADDRESSES[chainId as ChainId],
         signer
       );
       return splitz.getReceiptsByAddress(address);

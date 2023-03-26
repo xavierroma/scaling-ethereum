@@ -4,7 +4,7 @@ import { ReactElement, useState } from "react";
 import DAI from "cryptocurrency-icons/svg/color/dai.svg";
 import Image from "next/image";
 import { useCreateRequestStore } from "@/stores/useCreateRequestStore";
-import { useEnsAddress, useEnsResolver, useNetwork, useProvider } from "wagmi";
+import { useNetwork } from "wagmi";
 import FormSectionArrow from "@/components/Form/FormSectionArrow";
 import FormSection from "@/components/Form/FormSection";
 import Button from "@/components/Button";

@@ -16,7 +16,7 @@ function useReceipts(address: string, options: { enabled?: boolean } = {}) {
       );
       return splitz.getReceiptsByAddress(address);
     },
-    { enabled: enabled && !!signer }
+    { enabled: enabled && !!signer, refetchOnWindowFocus: true }
   );
 }
 

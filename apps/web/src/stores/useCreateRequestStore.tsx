@@ -7,6 +7,7 @@ interface CreateRequestStore {
   setAmount: (amount: number) => void;
   splits: Split[];
   setSplits: (splits: Split[]) => void;
+  clear: () => void;
 }
 
 type Split = {
@@ -22,4 +23,5 @@ export const useCreateRequestStore = create<CreateRequestStore>((set) => ({
   setAmount: (amount) => set({ amount }),
   splits: [],
   setSplits: (splits) => set({ splits }),
+  clear: () => set({ description: "", amount: 0, splits: [] }),
 }));

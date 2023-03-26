@@ -1,4 +1,3 @@
-import partition from "lodash/partition";
 import DashboardLayout from "@/layouts/DashboardLayout/DashboardLayout";
 import Balance from "@/layouts/DashboardLayout/components/Balance";
 import NoOustandingRequests from "@/layouts/DashboardLayout/components/NoOustandingRequests";

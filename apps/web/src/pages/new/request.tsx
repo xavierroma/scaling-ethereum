@@ -33,6 +33,17 @@ const SetAmount: NextPageWithLayout = () => {
   ]);
   const [address, setAddress] = useState<string>("");
 
+  const changeAmount = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const amount = Number(e.target.value);
+    setAmount(amount);
+    const newSplits = [...splits];
+    newSplits.forEach(
+      (split, i) =>
+        (split.amount = splitFiatAmountIntoParts(amount, newSplits.length)[i])
+    );
+    setSplits(newSplits);
+  };
+
   const addSplit = async (addr: string) => {
     if (!addr) return;
     if (splits.find((s) => s.address === addr || s.ens === addr)) {
@@ -68,7 +79,8 @@ const SetAmount: NextPageWithLayout = () => {
   };
 
   const removeSplit = (addr: string) => {
-    setSplits(splits.filter((s) => s.address === addr || s.ens === addr));
+    console.log(addr, splits);
+    setSplits(splits.filter((s) => s.ens !== addr));
   };
 
   return (
@@ -89,11 +101,7 @@ const SetAmount: NextPageWithLayout = () => {
             defaultValue={amount || undefined}
             placeholder="50.00"
             className="flex flex-1 w-full bg-transparent rounded-xl p-2 -m-2 text-2xl focus:outline-none"
-            onInput={(e) => {
-              const input = e.target as HTMLInputElement;
-              const value = input.value;
-              setAmount(Number(value));
-            }}
+            onInput={changeAmount}
           />
 
           <div className="flex items-center gap-2 p-2 border rounded-xl">
@@ -155,7 +163,7 @@ const SetAmount: NextPageWithLayout = () => {
                   <div className="inline-flex items-center text-base text-gray-900 dark:text-white">
                     {formatter.format(split.amount)}
                   </div>
-                  <Button.Icon onClick={() => removeSplit(split.address)} />
+                  <Button.Icon onClick={() => removeSplit(split.ens)} />
                 </div>
               </li>
             ))}

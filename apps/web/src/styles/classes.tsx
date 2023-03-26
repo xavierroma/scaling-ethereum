@@ -10,7 +10,7 @@ export const textBackgroundPrimaryGradient = `
   bg-clip-text
 `;
 export const backgroundPrimaryGradientHover = `
-  hover:from-blue-600/70
+  hover:from-blue-500/50
   hover:to-blue-600/70
 `;
 

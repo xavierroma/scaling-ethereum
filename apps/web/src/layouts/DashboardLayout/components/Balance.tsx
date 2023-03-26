@@ -39,6 +39,7 @@ const Balance: FC<BalanceProps> = ({ balanceOwed, balanceRequested }) => (
             p-3
             transition-all
             hover:bg-background
+            active:bg-backgroundElevated
           `}
         >
           <span

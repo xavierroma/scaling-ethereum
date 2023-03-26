@@ -23,6 +23,7 @@ const Index: NextPageWithLayout = () => {
   const { totalOwed, totalOwes } = computeMetrics(connectedAddress, receipts);
   const isOwed = owedReceipts.length > 0;
   const hasPendingPayments = owesReceipts.length > 0;
+
   return (
     <div className="flex flex-col gap-8 p-4 md:p-8 lg:p-16 pt-0 md:flex-row max-w-7xl w-full mx-auto">
       <div className="w-full lg:w-440 md:w-400">
@@ -35,9 +36,9 @@ const Index: NextPageWithLayout = () => {
             <h2 className="text-sm opacity-50">You Are Owed</h2>
             <div className="flex flex-col bg-backgroundElevated rounded-2xl shadow-lg shadow-black/5">
               {owedReceipts.map((receipt) => {
+                console.log(receipt.lines);
                 return (
                   <PaymentRequest
-                    href={`/pay/${receipt.id}`}
                     address={middleElipse(receipt.owed)}
                     amount={
                       receipt.amount &&
@@ -45,7 +46,7 @@ const Index: NextPageWithLayout = () => {
                         (receipt.owed === connectedAddress ? 1 : -1)
                     }
                     description={receipt.description}
-                    isSettled={receipt.lines?.every((l) => l.paid)}
+                    payers={receipt.lines}
                   />
                 );
               })}
@@ -61,6 +62,7 @@ const Index: NextPageWithLayout = () => {
               {owesReceipts.map((receipt) => {
                 return (
                   <PaymentRequest
+                    variant="debt"
                     href={`/pay/${receipt.id}`}
                     address={middleElipse(receipt.owed)}
                     amount={
@@ -69,7 +71,7 @@ const Index: NextPageWithLayout = () => {
                         (receipt.owed === connectedAccount.address ? 1 : -1)
                     }
                     description={receipt.description}
-                    isSettled={receipt.lines?.every((l) => l.paid)}
+                    payers={receipt.lines}
                   />
                 );
               })}
@@ -83,7 +85,7 @@ const Index: NextPageWithLayout = () => {
               {settled.map((receipt) => {
                 return (
                   <PaymentRequest
-                    href={`/pay/${receipt.id}`}
+                    variant="settled"
                     address={middleElipse(receipt.owed)}
                     amount={
                       receipt.amount &&
@@ -91,7 +93,7 @@ const Index: NextPageWithLayout = () => {
                         (receipt.owed === connectedAccount.address ? 1 : -1)
                     }
                     description={receipt.description}
-                    isSettled={receipt.lines?.every((l) => l.paid)}
+                    payers={receipt.lines}
                   />
                 );
               })}

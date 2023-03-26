@@ -25,6 +25,7 @@ import { jsonRpcProvider } from "wagmi/providers/jsonRpc";
 import { publicProvider } from "wagmi/providers/public";
 
 import "@/styles/global.css";
+import Head from "next/head";
 
 const { chains, provider } = configureChains(
   [mainnet, arbitrum, bsc, gnosis, optimism, polygon, gnosisChiado, goerli],
@@ -60,6 +61,11 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
           fontStack: "system",
         })}
       >
+        <Head>
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <title>Splitz - Request money from your friends and family</title>
+        </Head>
+
         {getLayout(<Component {...pageProps} />)}
       </RainbowKitProvider>
     </WagmiConfig>

@@ -33,10 +33,12 @@ const CreateRequestLayout: FC<PropsWithChildren> = ({ children }) => {
 
   return (
     <AppLayout breadcrumb={[{ label: "Create Request" }]}>
-      <div className="max-w-2xl flex flex-col flex-1 w-full ml-auto mr-auto">
-        <div className="flex flex-1 flex-col gap-4 p-4">{children}</div>
+      <div className="max-w-sm flex flex-col flex-1 w-full ml-auto mr-auto">
+        <div className="flex flex-col"/>
 
-        <div className="flex flex-col items-end justify-end gap-4 w-full p-4">
+        <div className="flex flex-col gap-4 p-4">{children}</div>
+
+        <div className="flex flex-col  justify-end gap-4 w-full p-4 pt-0">
           <Button.Primary disabled={!canSubmit} onClick={submitRequest}>
             Submit
           </Button.Primary>

@@ -22,7 +22,6 @@ const Pay: NextPageWithLayout = () => {
   const { query } = useRouter();
   const { requestId } = query;
   const { address } = useAccount();
-  const { data: ens } = useMainnetEnsName();
   const receipt = useReceiptId(Number(requestId));
   const { pay } = usePayReceipt();
 
@@ -33,7 +32,7 @@ const Pay: NextPageWithLayout = () => {
     return <div>Loading...</div>;
   }
 
-  console.log(receipt);
+  const { data: ens } = useMainnetEnsName(receipt.owed);
 
   const myLines = receipt.lines?.filter((l) => l.owes === address) || [];
   const isPaid = myLines.every((l) => l.paid);
@@ -60,7 +59,7 @@ const Pay: NextPageWithLayout = () => {
 
         <PaySection title="Recipient">
           <div className="flex items-center gap-2">
-            <AvatarAddress ens={ens || address} address={address} />
+            <AvatarAddress ens={ens || receipt.owed} address={receipt.owed} />
           </div>
         </PaySection>
 

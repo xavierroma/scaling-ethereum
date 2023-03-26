@@ -31,7 +31,7 @@ export function usePayReceipt() {
 
     const signature = await signTypedDataAsync({
       domain: {
-        chainId: 5,
+        chainId: chainId,
         name: "TestUSDC",
         verifyingContract: tokenContract.address as `0x${string}`,
         version: "1",
@@ -65,17 +65,9 @@ export function usePayReceipt() {
 
     const split = ethers.utils.splitSignature(signature);
 
-    console.log(deploymentAddress, signer);
     const splitzSigner = Splitz__factory.connect(deploymentAddress, signer);
 
-    // try {
-    //   await splitzSigner.callStatic.pay(0, permit, split);
-    // } catch (_error) {
-    //   const error = _error as Error;
-    //   throw new Error("Unable to pay receipt " + error.message);
-    // }
-
-    const transaction = await splitzSigner.payReceipt(receiptId, permit, split);
+    const transaction = await splitzSigner.payReceipt(receiptId, permit, { v: split.v, r: split.r, s: split.s });
     await transaction.wait(1);
   }
   return { pay };

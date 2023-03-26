@@ -6,6 +6,7 @@ export enum ChainId {
   arbitrumGoerli = 421_613,
   optimism = 10,
   arbitrum = 42_161,
+  gnosis = 100,
 }
 
 export enum Token {
@@ -21,10 +22,12 @@ export const TOKEN_ADDRESSES: Record<ChainId, string> = {
   [ChainId.arbitrumGoerli]: "0xe54d54f6B463320CF12a08d1d5d821888Ca3f208",
   [ChainId.optimism]: "0x7F5c764cBc14f9669B88837ca1490cCa17c31607",
   [ChainId.arbitrum]: "0xFF970A61A04b1cA14834A43f5dE4533eBDDB5CC8",
+  [ChainId.gnosis]: "0xDDAfbb505ad214D7b80b1f830fcCc89B60fb7A83",
 };
 
 export const DEPLOYMENT_ADDRESSES: Record<ChainId, string> = {
   [ChainId.goerli]: "0x64a3EbA32470677ca6caF9EF438F88300157E5d2",
+  [ChainId.gnosis]: "0x24Fc2DF0c12D6B20220A665405a9Da4f6568d41f",
   [ChainId.ethereum]: "",
   [ChainId.polygon]: "",
   [ChainId.optimismGoerli]: "",

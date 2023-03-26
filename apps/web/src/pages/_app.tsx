@@ -13,12 +13,12 @@ import { configureChains, createClient, goerli, WagmiConfig } from "wagmi";
 import { mainnet, gnosis, optimism, polygon } from "wagmi/chains";
 import { jsonRpcProvider } from "wagmi/providers/jsonRpc";
 import { publicProvider } from "wagmi/providers/public";
-import { scroll } from "@/blockchain/constants";
+import { scroll, polygonZkEvm } from "@/blockchain/constants";
 import "@/styles/global.css";
 import Head from "next/head";
 
 const { chains, provider } = configureChains(
-  [mainnet, gnosis, optimism, polygon, goerli, scroll],
+  [mainnet, gnosis, optimism, goerli, scroll, polygonZkEvm],
   [
     publicProvider(),
     jsonRpcProvider({

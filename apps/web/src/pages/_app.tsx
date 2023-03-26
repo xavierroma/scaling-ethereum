@@ -19,9 +19,11 @@ import {
   arbitrum,
   avalanche,
   bsc,
+  goerli,
   gnosis,
   gnosisChiado,
   optimism,
+  gnosisChiado,
   polygon,
 } from "wagmi/chains";
 import { alchemyProvider } from "wagmi/providers/alchemy";
@@ -30,7 +32,7 @@ import { jsonRpcProvider } from "wagmi/providers/jsonRpc";
 
 import "@/styles/global.css";
 import { AppPropsWithLayout } from "@/types/next-types";
-
+import { jsonRpcProvider } from "wagmi/providers/jsonRpc";
 const { chains, provider } = configureChains(
   [
     mainnet,

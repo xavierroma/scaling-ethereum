@@ -23,7 +23,8 @@ const SetAmount: NextPageWithLayout = () => {
   useEnsAddress();
   const amount = useCreateRequestStore((store) => store.amount);
   const setAmount = useCreateRequestStore((store) => store.setAmount);
-  const [setDescription] = useCreateRequestStore((store) => [
+  const [description, setDescription] = useCreateRequestStore((store) => [
+    store.description,
     store.setDescription,
   ]);
   const [splits, setSplits] = useCreateRequestStore((store) => [

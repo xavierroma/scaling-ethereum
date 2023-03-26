@@ -10,10 +10,11 @@ import { useSigner } from "wagmi";
 const CreateRequestLayout: FC<PropsWithChildren> = ({ children }) => {
   const { data: signer } = useSigner();
   const splits = useCreateRequestStore((state) => state.splits);
+  const amount = useCreateRequestStore((state) => state.amount);
   const description = useCreateRequestStore((state) => state.description);
-
+  const canSubmit = splits.length > 0 && amount > 0 && description && signer;
   const submitRequest = async () => {
-    if (!signer) return;
+    if (!canSubmit) return;
     const createRequest: Registry.CreateReceiptLineStruct[] = splits.map(
       (split) => ({
         amount: ethers.utils.parseUnits(split.amount.toString(), 18),
@@ -34,7 +35,9 @@ const CreateRequestLayout: FC<PropsWithChildren> = ({ children }) => {
         <div className="flex flex-1 flex-col gap-4 p-4">{children}</div>
 
         <div className="flex flex-col items-end justify-end gap-4 w-full p-4">
-          <Button.Primary onClick={submitRequest}>Submit</Button.Primary>
+          <Button.Primary disabled={!canSubmit} onClick={submitRequest}>
+            Submit
+          </Button.Primary>
         </div>
       </div>
     </AppLayout>

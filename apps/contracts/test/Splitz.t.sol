@@ -15,7 +15,7 @@ import "./utils/Permit.t.sol";
 contract SplitzTest is Test, ReceiptsUtils, PermitUtils {
     Splitz public splitz;
 
-    address constant USDC = 0xDDAfbb505ad214D7b80b1f830fcCc89B60fb7A83;
+    address constant USDC = 0xf06605C57289098Cb82b284c0D2Dcbc3ba84d2d0;
     IERC20 public constant ContractUSDC = IERC20(USDC);
     IERC20Permit public constant ContractUSDCPermit = IERC20Permit(USDC);
 
@@ -26,7 +26,7 @@ contract SplitzTest is Test, ReceiptsUtils, PermitUtils {
     function testFail_pay_notInReceipt() public {
         uint256 amount = 100_000_000;
         (address source, uint256 sourcePkey) = makeAddrAndKey("source");
-        address receiver = 0x2DB6BDB71209AAb73942C0F924DDEE0202e36310;
+        address receiver = makeAddr("receiver");
 
         Splitz.Permit memory permit = Splitz.Permit(
             source,
@@ -60,7 +60,7 @@ contract SplitzTest is Test, ReceiptsUtils, PermitUtils {
     function test_pay() public {
         uint256 amount = 100_000_000;
         (address source, uint256 sourcePkey) = makeAddrAndKey("source");
-        address receiver = 0x2DB6BDB71209AAb73942C0F924DDEE0202e36310;
+        address receiver = makeAddr("receiver");
 
         deal(USDC, source, amount);
 
@@ -98,5 +98,8 @@ contract SplitzTest is Test, ReceiptsUtils, PermitUtils {
 
         assertEq(ContractUSDC.balanceOf(receiver), amount);
         assertEq(ContractUSDC.allowance(source, address(splitz)), 0);
+
+        Registry.Receipt memory receipt = splitz.getReceipt(receiptId);
+        assertEq(receipt.lines[0].paid, true);
     }
 }

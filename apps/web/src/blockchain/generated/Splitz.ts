@@ -37,11 +37,13 @@ export declare namespace Registry {
   export type ReceiptLineStruct = {
     owes: PromiseOrValue<string>;
     amount: PromiseOrValue<BigNumberish>;
+    paid: PromiseOrValue<boolean>;
   };
 
-  export type ReceiptLineStructOutput = [string, BigNumber] & {
+  export type ReceiptLineStructOutput = [string, BigNumber, boolean] & {
     owes: string;
     amount: BigNumber;
+    paid: boolean;
   };
 
   export type ReceiptStruct = {
@@ -235,9 +237,9 @@ export interface Splitz extends BaseContract {
       arg0: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<
-      [BigNumber, number, string, string, BigNumber] & {
+      [BigNumber, boolean, string, string, BigNumber] & {
         id: BigNumber;
-        operation: number;
+        paid: boolean;
         owed: string;
         owes: string;
         amount: BigNumber;
@@ -288,9 +290,9 @@ export interface Splitz extends BaseContract {
     arg0: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
   ): Promise<
-    [BigNumber, number, string, string, BigNumber] & {
+    [BigNumber, boolean, string, string, BigNumber] & {
       id: BigNumber;
-      operation: number;
+      paid: boolean;
       owed: string;
       owes: string;
       amount: BigNumber;
@@ -341,9 +343,9 @@ export interface Splitz extends BaseContract {
       arg0: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<
-      [BigNumber, number, string, string, BigNumber] & {
+      [BigNumber, boolean, string, string, BigNumber] & {
         id: BigNumber;
-        operation: number;
+        paid: boolean;
         owed: string;
         owes: string;
         amount: BigNumber;

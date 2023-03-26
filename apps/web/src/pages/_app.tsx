@@ -1,3 +1,4 @@
+import { AppPropsWithLayout } from "@/types/next-types";
 import "@fontsource/inter/300.css";
 import "@fontsource/inter/400.css";
 import "@fontsource/inter/500.css";
@@ -11,7 +12,6 @@ import "@rainbow-me/rainbowkit/styles.css";
 import {
   configureChains,
   createClient,
-  goerli,
   mainnet,
   WagmiConfig,
 } from "wagmi";
@@ -19,20 +19,18 @@ import {
   arbitrum,
   avalanche,
   bsc,
-  goerli,
   gnosis,
   gnosisChiado,
+  goerli,
   optimism,
-  gnosisChiado,
   polygon,
 } from "wagmi/chains";
 import { alchemyProvider } from "wagmi/providers/alchemy";
-import { publicProvider } from "wagmi/providers/public";
 import { jsonRpcProvider } from "wagmi/providers/jsonRpc";
+import { publicProvider } from "wagmi/providers/public";
 
 import "@/styles/global.css";
-import { AppPropsWithLayout } from "@/types/next-types";
-import { jsonRpcProvider } from "wagmi/providers/jsonRpc";
+
 const { chains, provider } = configureChains(
   [
     mainnet,

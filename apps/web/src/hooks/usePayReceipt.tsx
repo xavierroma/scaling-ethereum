@@ -1,8 +1,4 @@
-import {
-  ChainId,
-  DEPLOYMENT_ADDRESSES,
-  TOKEN_ADDRESSES,
-} from "@/blockchain/constants";
+import { ChainId, DEPLOYMENT_ADDRESSES, TOKEN_ADDRESSES } from "@/blockchain/constants";
 import { Splitz__factory } from "@/blockchain/generated";
 import { BigNumber, Contract, ethers } from "ethers";
 import { useAccount, useChainId, useSigner, useSignTypedData } from "wagmi";
@@ -15,18 +11,14 @@ export function usePayReceipt() {
   const chainId = useChainId() as ChainId;
   const { isLoading, signTypedDataAsync } = useSignTypedData();
 
-  async function pay(amount: BigNumber) {
+  async function pay(amount: BigNumber, receiptId: string) {
     if (!signer) return;
     if (!address) return;
-    const deploymentAddress = DEPLOYMENT_ADDRESSES[chainId];
-    if (deploymentAddress === undefined || deploymentAddress === "")
-      throw new Error("Unsupported chainId");
 
-    const tokenContract = new Contract(
-      TOKEN_ADDRESSES[chainId],
-      usdcGoerli,
-      signer
-    );
+    const deploymentAddress = DEPLOYMENT_ADDRESSES[chainId];
+    if (deploymentAddress === undefined || deploymentAddress === "") throw new Error("Unsupported chainId");
+
+    const tokenContract = new Contract(TOKEN_ADDRESSES[chainId], usdcGoerli, signer);
     const nonce = await tokenContract.nonces(address);
 
     const permit = {
@@ -73,16 +65,17 @@ export function usePayReceipt() {
 
     const split = ethers.utils.splitSignature(signature);
 
+    console.log(deploymentAddress, signer);
     const splitzSigner = Splitz__factory.connect(deploymentAddress, signer);
 
-    try {
-      await splitzSigner.callStatic.pay(0, permit, split);
-    } catch (_error) {
-      const error = _error as Error;
-      throw new Error("Unable to pay receipt " + error.message);
-    }
+    // try {
+    //   await splitzSigner.callStatic.pay(0, permit, split);
+    // } catch (_error) {
+    //   const error = _error as Error;
+    //   throw new Error("Unable to pay receipt " + error.message);
+    // }
 
-    const transaction = await splitzSigner.pay(0, permit, split);
+    const transaction = await splitzSigner.payReceipt(receiptId, permit, split);
     await transaction.wait(1);
   }
   return { pay };

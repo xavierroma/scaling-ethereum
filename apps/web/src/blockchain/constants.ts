@@ -24,7 +24,7 @@ export const TOKEN_ADDRESSES: Record<ChainId, string> = {
 };
 
 export const DEPLOYMENT_ADDRESSES: Record<ChainId, string> = {
-  [ChainId.goerli]: "0x99AA92D99f7Ff8c0897C1c4325591274857301c9",
+  [ChainId.goerli]: "0x64a3EbA32470677ca6caF9EF438F88300157E5d2",
   [ChainId.ethereum]: "",
   [ChainId.polygon]: "",
   [ChainId.optimismGoerli]: "",

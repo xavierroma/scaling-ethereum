@@ -115,7 +115,7 @@ export interface SplitzInterface extends utils.Interface {
     "getReceiptsByAddress(address)": FunctionFragment;
     "ledger(uint256)": FunctionFragment;
     "metadata(uint56)": FunctionFragment;
-    "pay(uint56,(address,address,uint256,uint256,uint256),(uint8,bytes32,bytes32))": FunctionFragment;
+    "payReceipt(uint56,(address,address,uint256,uint256,uint256),(uint8,bytes32,bytes32))": FunctionFragment;
     "token()": FunctionFragment;
     "tokenPermit()": FunctionFragment;
   };
@@ -127,7 +127,7 @@ export interface SplitzInterface extends utils.Interface {
       | "getReceiptsByAddress"
       | "ledger"
       | "metadata"
-      | "pay"
+      | "payReceipt"
       | "token"
       | "tokenPermit"
   ): FunctionFragment;
@@ -153,7 +153,7 @@ export interface SplitzInterface extends utils.Interface {
     values: [PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
-    functionFragment: "pay",
+    functionFragment: "payReceipt",
     values: [
       PromiseOrValue<BigNumberish>,
       Splitz.PermitStruct,
@@ -174,7 +174,7 @@ export interface SplitzInterface extends utils.Interface {
   ): Result;
   decodeFunctionResult(functionFragment: "ledger", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "metadata", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "pay", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "payReceipt", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "token", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "tokenPermit",
@@ -258,7 +258,7 @@ export interface Splitz extends BaseContract {
       }
     >;
 
-    pay(
+    payReceipt(
       receiptId: PromiseOrValue<BigNumberish>,
       permit: Splitz.PermitStruct,
       signature: Splitz.SignatureStruct,
@@ -311,7 +311,7 @@ export interface Splitz extends BaseContract {
     }
   >;
 
-  pay(
+  payReceipt(
     receiptId: PromiseOrValue<BigNumberish>,
     permit: Splitz.PermitStruct,
     signature: Splitz.SignatureStruct,
@@ -364,7 +364,7 @@ export interface Splitz extends BaseContract {
       }
     >;
 
-    pay(
+    payReceipt(
       receiptId: PromiseOrValue<BigNumberish>,
       permit: Splitz.PermitStruct,
       signature: Splitz.SignatureStruct,
@@ -405,7 +405,7 @@ export interface Splitz extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    pay(
+    payReceipt(
       receiptId: PromiseOrValue<BigNumberish>,
       permit: Splitz.PermitStruct,
       signature: Splitz.SignatureStruct,
@@ -444,7 +444,7 @@ export interface Splitz extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    pay(
+    payReceipt(
       receiptId: PromiseOrValue<BigNumberish>,
       permit: Splitz.PermitStruct,
       signature: Splitz.SignatureStruct,

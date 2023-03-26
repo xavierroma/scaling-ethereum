@@ -15,26 +15,23 @@ const CreateRequestLayout: FC<PropsWithChildren> = ({ children }) => {
   const amount = useCreateRequestStore((state) => state.amount);
   const description = useCreateRequestStore((state) => state.description);
   const canSubmit = splits.length > 0 && amount > 0 && description && signer;
+
   const submitRequest = async () => {
     if (!canSubmit) return;
-    const createRequest: Registry.CreateReceiptLineStruct[] = splits.map(
-      (split) => ({
-        amount: ethers.utils.parseUnits(split.amount.toString(), 18),
-        owes: split.address,
-      })
-    );
-    const splitz: Splitz = Splitz__factory.connect(
-      DEPLOYMENT_ADDRESSES[chainId as ChainId],
-      signer
-    );
+
+    const createRequest: Registry.CreateReceiptLineStruct[] = splits.map((split) => ({
+      amount: ethers.utils.parseUnits(split.amount.toString(), 6),
+      owes: split.address,
+    }));
+    const splitz: Splitz = Splitz__factory.connect(DEPLOYMENT_ADDRESSES[chainId as ChainId], signer);
     const res = await splitz.addReceipt(description, createRequest);
-    console.log(res);
+    await res.wait(1);
   };
 
   return (
     <AppLayout breadcrumb={[{ label: "Create Request" }]}>
       <div className="max-w-sm flex flex-col flex-1 w-full ml-auto mr-auto">
-        <div className="flex flex-col"/>
+        <div className="flex flex-col" />
 
         <div className="flex flex-col gap-4 p-4">{children}</div>
 

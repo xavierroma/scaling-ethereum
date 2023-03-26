@@ -8,24 +8,49 @@ import {
   RainbowKitProvider,
 } from "@rainbow-me/rainbowkit";
 import "@rainbow-me/rainbowkit/styles.css";
-import { configureChains, createClient, mainnet, WagmiConfig } from "wagmi";
+import {
+  configureChains,
+  createClient,
+  goerli,
+  mainnet,
+  WagmiConfig,
+} from "wagmi";
 import {
   arbitrum,
   avalanche,
   bsc,
   gnosis,
+  gnosisChiado,
   optimism,
   polygon,
 } from "wagmi/chains";
 import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from "wagmi/providers/public";
+import { jsonRpcProvider } from "wagmi/providers/jsonRpc";
 
 import "@/styles/global.css";
 import { AppPropsWithLayout } from "@/types/next-types";
 
 const { chains, provider } = configureChains(
-  [mainnet, avalanche, arbitrum, bsc, gnosis, optimism, polygon],
-  [alchemyProvider({ apiKey: process.env.ALCHEMY_API_KEY! }), publicProvider()]
+  [
+    mainnet,
+    avalanche,
+    arbitrum,
+    bsc,
+    gnosis,
+    optimism,
+    polygon,
+    gnosisChiado,
+    goerli,
+  ],
+  [
+    alchemyProvider({ apiKey: process.env.ALCHEMY_API_KEY! }),
+    publicProvider(),
+    jsonRpcProvider({
+      static: true,
+      rpc: (chain) => ({ http: "http://localhost:8545" }),
+    }),
+  ]
 );
 
 const { connectors } = getDefaultWallets({

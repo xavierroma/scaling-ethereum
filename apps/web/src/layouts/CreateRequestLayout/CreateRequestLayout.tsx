@@ -1,18 +1,33 @@
-import Stepper from "@/components/Stepper";
-import StepperStep from "@/components/StepperStep";
-import { useCreateRequestStore } from "@/stores/useCreateRequestStore";
-import { useRouter } from "next/router";
-import { FC, PropsWithChildren, useMemo } from "react";
+import { FC, PropsWithChildren } from "react";
 import AppLayout from "../AppLayout/AppLayout";
 import Button from "@/components/Button";
-
-export enum Steps {
-  SetRequest = "SetRequest",
-  SubmitRequest = "SubmitRequest",
-}
+import { Registry, Splitz } from "@/blockchain/generated/Splitz";
+import { useCreateRequestStore } from "@/stores/useCreateRequestStore";
+import { ethers } from "ethers";
+import { Splitz__factory } from "@/blockchain/generated";
+import { useSigner } from "wagmi";
 
 const CreateRequestLayout: FC<PropsWithChildren> = ({ children }) => {
-  const submitRequest = () => {};
+  const { data: signer } = useSigner();
+  const splits = useCreateRequestStore((state) => state.splits);
+  const description = useCreateRequestStore((state) => state.description);
+
+  const submitRequest = async () => {
+    if (!signer) return;
+    const createRequest: Registry.CreateReceiptLineStruct[] = splits.map(
+      (split) => ({
+        amount: ethers.utils.parseUnits(split.amount.toString(), 18),
+        owes: split.address,
+      })
+    );
+    const splitz: Splitz = Splitz__factory.connect(
+      "0x9A9336DB3814a82CdC55c76e6a95aB75191eEbfE",
+      signer
+    );
+    const res = await splitz.addReceipt(description, createRequest);
+    console.log(res);
+  };
+
   return (
     <AppLayout breadcrumb={[{ label: "Create Request" }]}>
       <div className="max-w-2xl flex flex-col flex-1 w-full ml-auto mr-auto">

@@ -73,6 +73,25 @@ contract Registry {
         }
     }
 
+    function payReceipt(
+        uint56 receiptId
+    ) internal returns (uint256 amountDue, address receiver) {
+        Metadata memory meta = metadata[receiptId];
+
+        amountDue = 0;
+        receiver = ledger[meta.ledgerStartPosition].owed;
+
+        for (uint i = meta.ledgerStartPosition; i < ledger.length; i++) {
+            if (ledger[i].id != receiptId) break;
+            if (ledger[i].owes != msg.sender || ledger[i].paid) {
+                continue;
+            }
+
+            amountDue += ledger[i].amount;
+            ledger[i].paid = true;
+        }
+    }
+
     function getReceiptsByAddress(
         address addr
     ) public view returns (Receipt[] memory receipts) {
@@ -124,7 +143,7 @@ contract Registry {
                     owed: msg.sender,
                     amount: lines[i].amount,
                     id: nextId,
-                    paid: false
+                    paid: lines[i].owes == msg.sender
                 })
             );
         }

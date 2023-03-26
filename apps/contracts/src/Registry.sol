@@ -1,17 +1,6 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.13;
 
-/*
-
-- Add receipt ( I am owed ) ( adds lines with msg.sender as to)
-- Add repay ( adds lines with msg.sender as from )
-- Get receipt
-- Get all receipts
-- Get all repay
-- Whitelist address to address ( when paying )
-
-*/
-
 contract Registry {
     struct Receipt {
         uint56 id;
@@ -24,11 +13,12 @@ contract Registry {
     struct ReceiptLine {
         address owes;
         uint256 amount;
+        bool paid;
     }
 
     struct LedgerLine {
         uint56 id;
-        uint8 operation;
+        bool paid;
         address owed;
         address owes;
         uint256 amount;
@@ -76,7 +66,8 @@ contract Registry {
             uint position = i - meta.ledgerStartPosition;
             receipt.lines[position] = ReceiptLine({
                 owes: ledger[i].owes,
-                amount: ledger[i].amount
+                amount: ledger[i].amount,
+                paid: ledger[i].paid
             });
             receipt.amount += ledger[i].amount;
         }
@@ -133,7 +124,7 @@ contract Registry {
                     owed: msg.sender,
                     amount: lines[i].amount,
                     id: nextId,
-                    operation: 0
+                    paid: false
                 })
             );
         }

@@ -6,7 +6,9 @@ module.exports = {
       colors: {
         transparent: "transparent",
         current: "currentColor",
-        background: "#fff",
+        background: "#f4f6f9",
+        backgroundElevated: "#fff",
+        foreground: "#26272c",
         primary: "#1E40AF",
         secondary: "#10B981",
         tertiary: "#FBBF24",
@@ -19,6 +21,11 @@ module.exports = {
       fontFamily: {
         sans: ["Inter", "sans-serif"],
       },
+      width: {
+        '400': '400px',
+        '440': '440px',
+        '480': '480px',
+      }
     },
   },
   plugins: [],

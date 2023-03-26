@@ -1,5 +1,5 @@
 const FormSectionArrow = () => (
-  <div className="relative flex items-center justify-center rounded-xl bg-white -m-3 p-1 border bg-gray-50">
+  <div className="relative flex items-center justify-center rounded-xl bg-backgroundElevated -m-3 p-1 border">
     <svg
       width="24"
       height="24"

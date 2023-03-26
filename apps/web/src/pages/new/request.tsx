@@ -69,7 +69,7 @@ const SetAmount: NextPageWithLayout = () => {
   };
   return (
     <div className="flex flex-1 flex-col max-w-2xl mx-auto justify-center items-center">
-      <FormSection title="Chain" disabled={true}>
+      <FormSection title="Chain">
         <div className="flex items-center gap-2">
           <Image src={arbitrum} alt="ETH" width="24" height="24" />
           <span className="font-bold">{network.chain?.name}</span>
@@ -78,7 +78,7 @@ const SetAmount: NextPageWithLayout = () => {
 
       <FormSectionArrow />
 
-      <FormSection title="Amount" disabled={true}>
+      <FormSection title="Amount">
         <div className="flex gap-1">
           <input
             type="number"
@@ -92,7 +92,7 @@ const SetAmount: NextPageWithLayout = () => {
             }}
           />
 
-          <div className="flex items-center gap-2 p-2 bg-gray-50 border rounded-xl">
+          <div className="flex items-center gap-2 p-2 border rounded-xl">
             <Image src={DAI} alt="DAI" width="32" height="32" />
             <span>DAI</span>
           </div>

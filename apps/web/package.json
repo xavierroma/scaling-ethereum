@@ -16,6 +16,7 @@
     "@fontsource/inter": "^4.5.15",
     "@rainbow-me/rainbowkit": "^0.12.1",
     "@wagmi/core": "^0.10.1",
+    "@untitled-ui/icons-react": "^0.1.1",
     "cryptocurrency-icons": "^0.18.1",
     "ethereum-blockies-base64": "^1.0.2",
     "ethers": "5.7.2",

@@ -2,6 +2,7 @@ import { FC } from "react";
 import BalanceBox from "./BalanceBox";
 import Link from "next/link";
 import Button from "@/components/Button";
+import { backgroundPrimaryGradient, backgroundPrimaryGradientHover, textBackgroundPrimaryGradient } from "@/styles/classes";
 
 interface BalanceProps {
   balanceOwed: number;
@@ -16,8 +17,8 @@ const Balance: FC<BalanceProps> = ({ balanceOwed, balanceRequested }) => (
       <BalanceBox balance={balanceRequested} variant="positive" />
     </div>
 
-    <div className="flex flex-col gap-4 p-4 bg-backgroundElevated shadow-lg shadow-black/5 rounded-2xl">
-      <div className="flex self-stretch justify-between gap-1 text-gray-800/50">
+    <div className="flex flex-col bg-backgroundElevated shadow-lg shadow-black/5 rounded-2xl overflow-hidden">
+      <div className="flex self-stretch justify-between gap-1 text-gray-800/50 p-4">
         <span>
           Total <span className="text-xs">(requested - owed)</span>
         </span>
@@ -25,7 +26,29 @@ const Balance: FC<BalanceProps> = ({ balanceOwed, balanceRequested }) => (
       </div>
 
       <Link href="/new/request" passHref className="flex flex-1">
-        <Button.Tertiary>Request Money</Button.Tertiary>
+        <div
+          className={`
+            flex
+            flex-1
+            justify-center
+            items-center
+            text-sm
+            font-semibold
+            border-t
+            border-background
+            p-3
+            transition-all
+            hover:bg-background
+          `}
+        >
+          <span
+            className={`
+            ${textBackgroundPrimaryGradient}
+          `}
+          >
+            Request Money
+          </span>
+        </div>
       </Link>
     </div>
   </div>

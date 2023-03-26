@@ -1,3 +1,8 @@
+import {
+  backgroundPrimaryGradient,
+  backgroundPrimaryGradientHover,
+} from "@/styles/classes";
+import { Trash03 } from "@untitled-ui/icons-react";
 import { FC } from "react";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
@@ -6,7 +11,30 @@ const PrimaryButton: FC<ButtonProps> = ({ children, ...props }) => {
   return (
     <button
       type="button"
-      className="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+      className={`
+        disabled:opacity-50
+        text-white
+        transition-all
+        ${backgroundPrimaryGradient}
+        ${backgroundPrimaryGradientHover}
+        focus-visible:ring-4
+        focus-visible:outline-none
+        focus-visible:ring-blue-300
+        dark:focus-visible:ring-blue-800
+        font-semibold
+        rounded-lg
+        text-sm
+        px-5
+        py-2.5
+        text-center
+        shadow-lg
+        shadow-blue-500/20
+        active:shadow-transparent
+        disabled:shadow-transparent
+        disabled:active:top-0
+        relative
+        active:top-px
+      `}
       {...props}
     >
       {children}
@@ -19,44 +47,43 @@ const SecondaryButton: FC<ButtonProps> = ({ children, ...props }) => {
     <button
       type="button"
       className={`
-      relative 
-      inline-flex 
-      items-center 
-      justify-center 
-      p-0.5 
-      overflow-hidden 
-      text-sm 
-      font-medium 
-      text-gray-900 
-      rounded-lg 
-      group bg-gradient-to-br 
-      from-purple-600 
-      to-blue-500 
-      enabled:group-hover:to-blue-500 
-      enabled:group-hover:from-purple-600 
-      enabled:hover:text-white 
-      dark:text-white 
-      focus:ring-4 
-      focus:outline-none 
-      focus:ring-blue-300 
-      enabled:dark:focus:ring-blue-800
-      disabled:opacity-50
+        relative 
+        inline-flex 
+        items-center 
+        justify-center 
+        p-0.5 
+        overflow-hidden 
+        text-sm 
+        font-medium 
+        text-gray-900 
+        rounded-lg 
+        group
+        ${backgroundPrimaryGradient}
+        enabled:group-hover:to-blue-500 
+        enabled:group-hover:from-purple-600 
+        enabled:hover:text-white 
+        dark:text-white 
+        focus:ring-4 
+        focus:outline-none 
+        focus:ring-blue-300 
+        enabled:dark:focus:ring-blue-800
+        disabled:opacity-50
      `}
       {...props}
     >
       <span
         className={`
-      relative 
-      px-5 
-      py-2.5 
-      transition-all 
-      ease-in 
-      duration-75 
-      bg-white 
-      dark:bg-gray-900 
-      rounded-md 
-      ${!props.disabled ? "group-hover:bg-opacity-0" : ""}
-      `}
+          relative 
+          px-5 
+          py-2
+          transition-all 
+          ease-in 
+          duration-75 
+          bg-white 
+          dark:bg-gray-900 
+          rounded-md 
+          ${!props.disabled ? "group-hover:bg-opacity-0" : ""}
+        `}
       >
         {children}
       </span>
@@ -109,30 +136,19 @@ const IconButton: FC<ButtonProps> = ({ children, ...props }) => {
         p-1.5 
         enabled:hover:bg-gray-100 
         inline-flex 
-        h-8 
-        w-8 
+        h-9 
+        w-9 
         dark:text-gray-500 
         enabled:dark:hover:text-white 
         dark:bg-gray-800 
-        enabled:dark:hover:bg-gray-700`}
+        enabled:dark:hover:bg-gray-700
+      `}
       data-dismiss-target="#toast-success"
       aria-label="Close"
       {...props}
     >
       <span className="sr-only">Close</span>
-      <svg
-        aria-hidden="true"
-        className="w-5 h-5"
-        fill="currentColor"
-        viewBox="0 0 20 20"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          fill-rule="evenodd"
-          d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-          clip-rule="evenodd"
-        ></path>
-      </svg>
+      <Trash03 />
     </button>
   );
 };

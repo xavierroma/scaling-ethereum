@@ -9,12 +9,7 @@ import {
   RainbowKitProvider,
 } from "@rainbow-me/rainbowkit";
 import "@rainbow-me/rainbowkit/styles.css";
-import {
-  configureChains,
-  createClient,
-  mainnet,
-  WagmiConfig,
-} from "wagmi";
+import { configureChains, createClient, mainnet, WagmiConfig } from "wagmi";
 import {
   arbitrum,
   avalanche,
@@ -32,17 +27,7 @@ import { publicProvider } from "wagmi/providers/public";
 import "@/styles/global.css";
 
 const { chains, provider } = configureChains(
-  [
-    mainnet,
-    avalanche,
-    arbitrum,
-    bsc,
-    gnosis,
-    optimism,
-    polygon,
-    gnosisChiado,
-    goerli,
-  ],
+  [mainnet, arbitrum, bsc, gnosis, optimism, polygon, gnosisChiado, goerli],
   [
     alchemyProvider({ apiKey: process.env.ALCHEMY_API_KEY! }),
     publicProvider(),

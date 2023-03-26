@@ -5,10 +5,12 @@ import { Registry, Splitz } from "@/blockchain/generated/Splitz";
 import { useCreateRequestStore } from "@/stores/useCreateRequestStore";
 import { ethers } from "ethers";
 import { Splitz__factory } from "@/blockchain/generated";
-import { useSigner } from "wagmi";
+import { useChainId, useSigner } from "wagmi";
+import { ChainId, DEPLOYMENT_ADDRESSES } from "@/blockchain/constants";
 
 const CreateRequestLayout: FC<PropsWithChildren> = ({ children }) => {
   const { data: signer } = useSigner();
+  const chainId = useChainId();
   const splits = useCreateRequestStore((state) => state.splits);
   const amount = useCreateRequestStore((state) => state.amount);
   const description = useCreateRequestStore((state) => state.description);
@@ -22,7 +24,7 @@ const CreateRequestLayout: FC<PropsWithChildren> = ({ children }) => {
       })
     );
     const splitz: Splitz = Splitz__factory.connect(
-      "0x9A9336DB3814a82CdC55c76e6a95aB75191eEbfE",
+      DEPLOYMENT_ADDRESSES[chainId as ChainId],
       signer
     );
     const res = await splitz.addReceipt(description, createRequest);

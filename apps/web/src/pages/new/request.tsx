@@ -4,7 +4,7 @@ import { ReactElement, useState } from "react";
 import DAI from "cryptocurrency-icons/svg/color/dai.svg";
 import Image from "next/image";
 import { useCreateRequestStore } from "@/stores/useCreateRequestStore";
-import { useEnsAddress, useNetwork } from "wagmi";
+import { useEnsAddress, useEnsResolver, useNetwork, useProvider } from "wagmi";
 import FormSectionArrow from "@/components/Form/FormSectionArrow";
 import FormSection from "@/components/Form/FormSection";
 import Button from "@/components/Button";
@@ -20,7 +20,6 @@ const formatter = new Intl.NumberFormat("en-US", {
 
 const SetAmount: NextPageWithLayout = () => {
   const network = useNetwork();
-  useEnsAddress();
   const amount = useCreateRequestStore((store) => store.amount);
   const setAmount = useCreateRequestStore((store) => store.setAmount);
   const [description, setDescription] = useCreateRequestStore((store) => [
@@ -49,7 +48,7 @@ const SetAmount: NextPageWithLayout = () => {
       newSplits.push({ address, ens: addr, amount: 0 });
     } else if (addr.startsWith("0x")) {
       const ensName = await fetchEnsName({
-        address: "0xA0Cf798816D4b9b9866b5330EEa46a18382f251e",
+        address: addr as `0x${string}`,
         chainId: 1,
       });
       if (!ensName) return;

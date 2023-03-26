@@ -10,7 +10,7 @@ interface BalanceBoxProps {
 }
 
 const BalanceBox: FC<BalanceBoxProps> = ({ balance, variant }) => {
-  const text = variant === "positive" ? "Requested (unpaid)" : "You owe";
+  const text = variant === "positive" ? "Yow owe" : "You are owed";
   const background =
     variant === "positive"
       ? "-bg-blue-100/50 -border -border-blue-200/50"
@@ -66,7 +66,6 @@ const BalanceBox: FC<BalanceBoxProps> = ({ balance, variant }) => {
             font-bold
           `}
         >
-          {variant === "positive" ? "+" : variant === "negative" ? "-" : ""}
           {balance}
         </span>
         <span

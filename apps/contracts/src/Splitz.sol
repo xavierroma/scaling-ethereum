@@ -46,6 +46,7 @@ contract Splitz is Registry {
             }
 
             amount += line.amount;
+            line.paid = true;
         }
 
         require(amount > 0, "Splitz: no amount to pay");

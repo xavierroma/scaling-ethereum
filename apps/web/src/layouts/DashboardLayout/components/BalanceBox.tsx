@@ -1,7 +1,4 @@
-import {
-  backgroundNegativeGradient,
-  backgroundPrimaryGradient,
-} from "@/styles/classes";
+import { backgroundNegativeGradient, backgroundPrimaryGradient } from "@/styles/classes";
 import { FC } from "react";
 
 interface BalanceBoxProps {
@@ -18,11 +15,7 @@ const BalanceBox: FC<BalanceBoxProps> = ({ balance, variant }) => {
       ? "-bg-orange-100/50 -border -border-orange-200/50"
       : "-bg-gray-100/50 -border -border-gray-200/50";
   const labelTextColor =
-    variant === "positive"
-      ? "text-blue-700/50"
-      : variant === "negative"
-      ? "text-orange-700/50"
-      : "text-gray-700/50";
+    variant === "positive" ? "text-blue-700/50" : variant === "negative" ? "text-orange-700/50" : "text-gray-700/50";
   const valueGradient =
     variant === "positive"
       ? `text-blue-500 ${backgroundPrimaryGradient}`

@@ -1,8 +1,4 @@
-import {
-  ChainId,
-  DEPLOYMENT_ADDRESSES,
-  TOKEN_ADDRESSES,
-} from "@/blockchain/constants";
+import { ChainId, DEPLOYMENT_ADDRESSES, TOKEN_ADDRESSES } from "@/blockchain/constants";
 import { Splitz__factory } from "@/blockchain/generated";
 import { BigNumber, Contract, ethers } from "ethers";
 import { useAccount, useChainId, useSigner, useSignTypedData } from "wagmi";
@@ -20,14 +16,9 @@ export function usePayReceipt() {
     if (!address) return;
 
     const deploymentAddress = DEPLOYMENT_ADDRESSES[chainId];
-    if (deploymentAddress === undefined || deploymentAddress === "")
-      throw new Error("Unsupported chainId");
+    if (deploymentAddress === undefined || deploymentAddress === "") throw new Error("Unsupported chainId");
 
-    const tokenContract = new Contract(
-      TOKEN_ADDRESSES[chainId],
-      usdcGoerli,
-      signer
-    );
+    const tokenContract = new Contract(TOKEN_ADDRESSES[chainId], usdcGoerli, signer);
     const nonce = await tokenContract.nonces(address);
 
     const permit = {
@@ -84,7 +75,7 @@ export function usePayReceipt() {
     //   throw new Error("Unable to pay receipt " + error.message);
     // }
 
-    const transaction = await splitzSigner.pay(0, permit, split);
+    const transaction = await splitzSigner.payReceipt(receiptId, permit, split);
     await transaction.wait(1);
   }
   return { pay };

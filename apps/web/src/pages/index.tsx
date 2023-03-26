@@ -1,4 +1,3 @@
-import partition from "lodash/partition";
 import DashboardLayout from "@/layouts/DashboardLayout/DashboardLayout";
 import Balance from "@/layouts/DashboardLayout/components/Balance";
 import NoOustandingRequests from "@/layouts/DashboardLayout/components/NoOustandingRequests";
@@ -6,7 +5,7 @@ import PaymentRequest from "@/layouts/DashboardLayout/components/PaymentRequest"
 import { NextPageWithLayout } from "@/types/next-types";
 import { ReactElement } from "react";
 import { useAccount } from "wagmi";
-import { ethers } from "ethers";
+import { BigNumber, ethers } from "ethers";
 import { middleElipse } from "@/utils/middleElipse";
 import useReceipts from "@/hooks/useReceipts";
 import { Registry } from "@/blockchain/generated/Splitz";
@@ -42,8 +41,7 @@ const Index: NextPageWithLayout = () => {
                     address={middleElipse(receipt.owed)}
                     amount={
                       receipt.amount &&
-                      Number(ethers.utils.formatEther(receipt.amount)) *
-                        (receipt.owed === connectedAddress ? 1 : -1)
+                      Number(ethers.utils.formatUnits(receipt.amount, 6)) * (receipt.owed === connectedAddress ? 1 : -1)
                     }
                     description={receipt.description}
                     payers={receipt.lines}
@@ -67,7 +65,7 @@ const Index: NextPageWithLayout = () => {
                     address={middleElipse(receipt.owed)}
                     amount={
                       receipt.amount &&
-                      Number(ethers.utils.formatEther(receipt.amount)) *
+                      Number(ethers.utils.formatUnits(receipt.amount, 6)) *
                         (receipt.owed === connectedAccount.address ? 1 : -1)
                     }
                     description={receipt.description}
@@ -89,7 +87,7 @@ const Index: NextPageWithLayout = () => {
                     address={middleElipse(receipt.owed)}
                     amount={
                       receipt.amount &&
-                      Number(ethers.utils.formatEther(receipt.amount)) *
+                      Number(ethers.utils.formatUnits(receipt.amount, 6)) *
                         (receipt.owed === connectedAccount.address ? 1 : -1)
                     }
                     description={receipt.description}
@@ -119,8 +117,8 @@ function computeMetrics(
   totalOwes: number;
 } {
   return {
-    totalOwed: computeOwed(address, pending),
-    totalOwes: computeOwes(address, pending),
+    totalOwed: Number(ethers.utils.formatUnits(computeOwed(address, pending), 6)),
+    totalOwes: Number(ethers.utils.formatUnits(computeOwes(address, pending), 6)),
   };
 }
 
@@ -129,12 +127,12 @@ function computeOwed(address: string, pending: Registry.ReceiptStructOutput[]) {
     if (receipt.owed === address && receipt.lines) {
       for (const line of receipt.lines) {
         if (!line.paid && line.owes !== address) {
-          acc += Number(ethers.utils.formatEther(line.amount));
+          acc = acc.add(line.amount);
         }
       }
     }
     return acc;
-  }, 0);
+  }, BigNumber.from(0));
 }
 
 function computeOwes(address: string, pending: Registry.ReceiptStructOutput[]) {
@@ -142,30 +140,21 @@ function computeOwes(address: string, pending: Registry.ReceiptStructOutput[]) {
     if (receipt.owed !== address && receipt.lines) {
       for (const line of receipt.lines) {
         if (!line.paid && line.owes === address) {
-          return acc + Number(ethers.utils.formatEther(line.amount));
+          acc = acc.add(line.amount);
         }
       }
     }
     return acc;
-  }, 0);
+  }, BigNumber.from(0));
 }
 
-function getOwedReceipts(
-  address: string,
-  pending: Registry.ReceiptStructOutput[]
-) {
-  return pending.filter(
-    (receipt) => receipt.owed === address && receipt.lines.some((l) => !l.paid)
-  );
+function getOwedReceipts(address: string, pending: Registry.ReceiptStructOutput[]) {
+  return pending.filter((receipt) => receipt.owed === address && receipt.lines.some((l) => !l.paid));
 }
 
-function getOwesReceipts(
-  address: string,
-  pending: Registry.ReceiptStructOutput[]
-) {
+function getOwesReceipts(address: string, pending: Registry.ReceiptStructOutput[]) {
   return pending.filter(
-    (receipt) =>
-      receipt.owed !== address && receipt.lines?.some((l) => l.owes === address)
+    (receipt) => receipt.owed !== address && receipt.lines?.some((l) => l.owes === address && !l.paid)
   );
 }
 

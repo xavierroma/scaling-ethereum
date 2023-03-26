@@ -22,7 +22,7 @@ const CreateRequestLayout: FC<PropsWithChildren> = ({ children }) => {
       })
     );
     const splitz: Splitz = Splitz__factory.connect(
-      "0x9A9336DB3814a82CdC55c76e6a95aB75191eEbfE",
+      "0x58395A4d794928Fda2a30660ceC6467181c62498",
       signer
     );
     const res = await splitz.addReceipt(description, createRequest);

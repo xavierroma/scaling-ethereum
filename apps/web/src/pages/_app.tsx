@@ -8,43 +8,25 @@ import {
   RainbowKitProvider,
 } from "@rainbow-me/rainbowkit";
 import "@rainbow-me/rainbowkit/styles.css";
-import {
-  configureChains,
-  createClient,
-  goerli,
-  mainnet,
-  WagmiConfig,
-} from "wagmi";
+import { configureChains, createClient, mainnet, WagmiConfig } from "wagmi";
 import {
   arbitrum,
   avalanche,
   bsc,
   goerli,
   gnosis,
-  gnosisChiado,
   optimism,
   gnosisChiado,
   polygon,
 } from "wagmi/chains";
 import { alchemyProvider } from "wagmi/providers/alchemy";
-import { publicProvider } from "wagmi/providers/public";
 import { jsonRpcProvider } from "wagmi/providers/jsonRpc";
-
+import { publicProvider } from "wagmi/providers/public";
 import "@/styles/global.css";
 import { AppPropsWithLayout } from "@/types/next-types";
-import { jsonRpcProvider } from "wagmi/providers/jsonRpc";
+
 const { chains, provider } = configureChains(
-  [
-    mainnet,
-    avalanche,
-    arbitrum,
-    bsc,
-    gnosis,
-    optimism,
-    polygon,
-    gnosisChiado,
-    goerli,
-  ],
+  [mainnet, arbitrum, bsc, gnosis, optimism, polygon, gnosisChiado, goerli],
   [
     alchemyProvider({ apiKey: process.env.ALCHEMY_API_KEY! }),
     publicProvider(),

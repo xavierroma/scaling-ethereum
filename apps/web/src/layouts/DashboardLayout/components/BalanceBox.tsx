@@ -66,7 +66,7 @@ const BalanceBox: FC<BalanceBoxProps> = ({ balance, variant }) => {
             font-bold
           `}
         >
-          {balance}
+          {balance.toFixed(2)}
         </span>
         <span
           className={`

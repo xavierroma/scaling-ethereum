@@ -19,7 +19,7 @@ const CreateRequestLayout: FC<PropsWithChildren> = ({ children }) => {
     if (!canSubmit) return;
     const createRequest: Registry.CreateReceiptLineStruct[] = splits.map(
       (split) => ({
-        amount: ethers.utils.parseUnits(split.amount.toString(), 18),
+        amount: ethers.utils.parseUnits(split.amount.toString(), 6),
         owes: split.address,
       })
     );

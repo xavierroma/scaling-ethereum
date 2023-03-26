@@ -15,9 +15,10 @@ export function usePayReceipt() {
   const chainId = useChainId() as ChainId;
   const { isLoading, signTypedDataAsync } = useSignTypedData();
 
-  async function pay(amount: BigNumber) {
+  async function pay(amount: BigNumber, receiptId: string) {
     if (!signer) return;
     if (!address) return;
+
     const deploymentAddress = DEPLOYMENT_ADDRESSES[chainId];
     if (deploymentAddress === undefined || deploymentAddress === "")
       throw new Error("Unsupported chainId");
@@ -73,14 +74,15 @@ export function usePayReceipt() {
 
     const split = ethers.utils.splitSignature(signature);
 
+    console.log(deploymentAddress, signer);
     const splitzSigner = Splitz__factory.connect(deploymentAddress, signer);
 
-    try {
-      await splitzSigner.callStatic.pay(0, permit, split);
-    } catch (_error) {
-      const error = _error as Error;
-      throw new Error("Unable to pay receipt " + error.message);
-    }
+    // try {
+    //   await splitzSigner.callStatic.pay(0, permit, split);
+    // } catch (_error) {
+    //   const error = _error as Error;
+    //   throw new Error("Unable to pay receipt " + error.message);
+    // }
 
     const transaction = await splitzSigner.pay(0, permit, split);
     await transaction.wait(1);

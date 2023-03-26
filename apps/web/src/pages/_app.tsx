@@ -30,8 +30,6 @@ import Head from "next/head";
 const { chains, provider } = configureChains(
   [mainnet, arbitrum, bsc, gnosis, optimism, polygon, gnosisChiado, goerli],
   [
-    alchemyProvider({ apiKey: process.env.ALCHEMY_API_KEY! }),
-    publicProvider(),
     jsonRpcProvider({
       static: true,
       rpc: (chain) => ({ http: "http://localhost:8545" }),

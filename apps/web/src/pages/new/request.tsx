@@ -51,8 +51,11 @@ const SetAmount: NextPageWithLayout = () => {
         address: addr as `0x${string}`,
         chainId: 1,
       });
-      if (!ensName) return;
-      newSplits.push({ address: addr, ens: ensName, amount: 0 });
+      if (!ensName) {
+        newSplits.push({ address: addr, ens: addr, amount: 0 });
+      } else {
+        newSplits.push({ address: addr, ens: ensName, amount: 0 });
+      }
     }
     newSplits.forEach(
       (split, i) =>

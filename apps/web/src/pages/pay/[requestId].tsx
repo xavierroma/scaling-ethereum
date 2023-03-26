@@ -8,7 +8,7 @@ import { textBackgroundPrimaryGradient } from "@/styles/classes";
 import { NextPageWithLayout } from "@/types/next-types";
 import { BigNumber, ethers } from "ethers";
 import { useRouter } from "next/router";
-import { FC, PropsWithChildren, ReactElement, use } from "react";
+import { FC, PropsWithChildren, ReactElement } from "react";
 import { useAccount } from "wagmi";
 
 const PaySection: FC<PropsWithChildren & { title: string }> = ({
@@ -28,7 +28,7 @@ const Pay: NextPageWithLayout = () => {
   const { data: ens } = useMainnetEnsName();
   const receipt = useReceiptId(Number(requestId));
   const { pay } = usePayReceipt();
-  console.log(receipt);
+
   if (!address) {
     return <>Connect your account</>;
   }
@@ -69,7 +69,9 @@ const Pay: NextPageWithLayout = () => {
         </PaySection>
 
         <div className="flex flex-col p-4">
-          <Button.Primary onClick={() => pay(amount)}>Pay</Button.Primary>
+          <Button.Primary onClick={() => pay(amount, requestId)}>
+            Pay
+          </Button.Primary>
         </div>
       </div>
     </div>

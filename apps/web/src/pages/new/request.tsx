@@ -23,8 +23,14 @@ const SetAmount: NextPageWithLayout = () => {
   const amount = useCreateRequestStore((store) => store.amount);
   const setAmount = useCreateRequestStore((store) => store.setAmount);
 
-  const [description, setDescription] = useCreateRequestStore((store) => [store.description, store.setDescription]);
-  const [splits, setSplits] = useCreateRequestStore((store) => [store.splits, store.setSplits]);
+  const [description, setDescription] = useCreateRequestStore((store) => [
+    store.description,
+    store.setDescription,
+  ]);
+  const [splits, setSplits] = useCreateRequestStore((store) => [
+    store.splits,
+    store.setSplits,
+  ]);
   const [address, setAddress] = useState<string>("");
 
   const addSplit = async (addr: string) => {
@@ -52,7 +58,10 @@ const SetAmount: NextPageWithLayout = () => {
         newSplits.push({ address: addr, ens: ensName, amount: 0 });
       }
     }
-    newSplits.forEach((split, i) => (split.amount = splitFiatAmountIntoParts(amount, newSplits.length)[i]));
+    newSplits.forEach(
+      (split, i) =>
+        (split.amount = splitFiatAmountIntoParts(amount, newSplits.length)[i])
+    );
     setSplits(newSplits);
 
     setAddress("");
@@ -127,12 +136,18 @@ const SetAmount: NextPageWithLayout = () => {
               setAddress(value);
             }}
           />
-          <Button.Secondary disabled={address.length < 4} onClick={() => addSplit(address)}>
+          <Button.Secondary
+            disabled={address.length < 4}
+            onClick={() => addSplit(address)}
+          >
             Add
           </Button.Secondary>
         </div>
         <div className="flex flex-col gap-1">
-          <ul role="list" className="divide-y divide-gray-200 dark:divide-gray-700">
+          <ul
+            role="list"
+            className="divide-y divide-gray-200 dark:divide-gray-700"
+          >
             {splits.map((split) => (
               <li className="py-3 sm:py-4" key={split.address}>
                 <div className="flex items-center space-x-4">

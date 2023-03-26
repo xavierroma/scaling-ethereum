@@ -8,10 +8,13 @@ import { textBackgroundPrimaryGradient } from "@/styles/classes";
 import { NextPageWithLayout } from "@/types/next-types";
 import { BigNumber, ethers } from "ethers";
 import { useRouter } from "next/router";
-import { FC, PropsWithChildren, ReactElement } from "react";
+import { FC, PropsWithChildren, ReactElement, useState } from "react";
 import { useAccount } from "wagmi";
 
-const PaySection: FC<PropsWithChildren & { title: string }> = ({ children, title }) => (
+const PaySection: FC<PropsWithChildren & { title: string }> = ({
+  children,
+  title,
+}) => (
   <div className="flex flex-col gap-2 border-t border-background p-4">
     <span className="opacity-50 text-xs">{title}</span>
     {children}
@@ -24,6 +27,15 @@ const Pay: NextPageWithLayout = () => {
   const { address } = useAccount();
   const receipt = useReceiptId(Number(requestId));
   const { pay } = usePayReceipt();
+  const { push } = useRouter();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const submittPayment = async () => {
+    setIsSubmitting(true);
+    await pay(amount, requestId as string);
+    setIsSubmitting(false);
+    push("/");
+  };
 
   if (!address) {
     return <div>Connect your account</div>;
@@ -36,7 +48,10 @@ const Pay: NextPageWithLayout = () => {
 
   const myLines = receipt.lines?.filter((l) => l.owes === address) || [];
   const isPaid = myLines.every((l) => l.paid);
-  const amount = myLines.reduce((acc, l) => acc.add(l.amount), BigNumber.from(0));
+  const amount = myLines.reduce(
+    (acc, l) => acc.add(l.amount),
+    BigNumber.from(0)
+  );
   if (isPaid) {
     return <>All paid</>;
   }
@@ -48,7 +63,9 @@ const Pay: NextPageWithLayout = () => {
       <div className="flex flex-col bg-backgroundElevated rounded-2xl shadow-lg shadow-black/5">
         <div className="flex flex-col gap-2 p-4 py-8">
           <span className={`opacity-50 text-xs text-center`}>Amount</span>
-          <span className={`text-4xl font-extrabold text-center ${textBackgroundPrimaryGradient}`}>
+          <span
+            className={`text-4xl font-extrabold text-center ${textBackgroundPrimaryGradient}`}
+          >
             {ethers.utils.formatUnits(amount, 6)} DAI
           </span>
         </div>
@@ -64,7 +81,13 @@ const Pay: NextPageWithLayout = () => {
         </PaySection>
 
         <div className="flex flex-col p-4">
-          <Button.Primary onClick={() => pay(amount, requestId as string)}>Pay</Button.Primary>
+          <Button.Primary
+            onClick={submittPayment}
+            loading={isSubmitting}
+            disabled={isSubmitting}
+          >
+            Pay
+          </Button.Primary>
         </div>
       </div>
     </div>

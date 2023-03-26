@@ -18,7 +18,7 @@ const Index: NextPageWithLayout = () => {
   });
   const owedReceipts = getOwedReceipts(connectedAddress, receipts);
   const owesReceipts = getOwesReceipts(connectedAddress, receipts);
-  const settled = getSettledReceipts(receipts);
+  const settled = getSettledReceipts(connectedAddress, receipts);
   const { totalOwed, totalOwes } = computeMetrics(connectedAddress, receipts);
   const isOwed = owedReceipts.length > 0;
   const hasPendingPayments = owesReceipts.length > 0;
@@ -41,7 +41,8 @@ const Index: NextPageWithLayout = () => {
                     address={middleElipse(receipt.owed)}
                     amount={
                       receipt.amount &&
-                      Number(ethers.utils.formatUnits(receipt.amount, 6)) * (receipt.owed === connectedAddress ? 1 : -1)
+                      Number(ethers.utils.formatUnits(receipt.amount, 6)) *
+                        (receipt.owed === connectedAddress ? 1 : -1)
                     }
                     description={receipt.description}
                     payers={receipt.lines}
@@ -117,8 +118,12 @@ function computeMetrics(
   totalOwes: number;
 } {
   return {
-    totalOwed: Number(ethers.utils.formatUnits(computeOwed(address, pending), 6)),
-    totalOwes: Number(ethers.utils.formatUnits(computeOwes(address, pending), 6)),
+    totalOwed: Number(
+      ethers.utils.formatUnits(computeOwed(address, pending), 6)
+    ),
+    totalOwes: Number(
+      ethers.utils.formatUnits(computeOwes(address, pending), 6)
+    ),
   };
 }
 
@@ -148,16 +153,43 @@ function computeOwes(address: string, pending: Registry.ReceiptStructOutput[]) {
   }, BigNumber.from(0));
 }
 
-function getOwedReceipts(address: string, pending: Registry.ReceiptStructOutput[]) {
-  return pending.filter((receipt) => receipt.owed === address && receipt.lines.some((l) => !l.paid));
+function getOwedReceipts(
+  address: string,
+  pending: Registry.ReceiptStructOutput[]
+) {
+  return pending
+    .filter(
+      (receipt) =>
+        receipt.owed === address && receipt.lines.some((l) => !l.paid)
+    )
+    .reverse();
 }
 
-function getOwesReceipts(address: string, pending: Registry.ReceiptStructOutput[]) {
-  return pending.filter(
-    (receipt) => receipt.owed !== address && receipt.lines?.some((l) => l.owes === address && !l.paid)
-  );
+function getOwesReceipts(
+  address: string,
+  pending: Registry.ReceiptStructOutput[]
+) {
+  return pending
+    .filter(
+      (receipt) =>
+        receipt.owed !== address &&
+        receipt.lines?.some((l) => l.owes === address && !l.paid)
+    )
+    .reverse();
 }
 
-function getSettledReceipts(pending: Registry.ReceiptStructOutput[]) {
-  return pending.filter((receipt) => receipt.lines?.every((l) => l.paid));
+function getSettledReceipts(
+  address: string,
+  pending: Registry.ReceiptStructOutput[]
+) {
+  return pending
+    .filter((receipt) => {
+      const addressPaid = receipt.lines?.some(
+        (l) => l.owes === address && l.paid
+      );
+      const hasBeenPaid =
+        receipt.owed === address && receipt.lines?.every((l) => l.paid);
+      return addressPaid || hasBeenPaid;
+    })
+    .reverse();
 }

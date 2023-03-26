@@ -9,40 +9,16 @@ import {
   RainbowKitProvider,
 } from "@rainbow-me/rainbowkit";
 import "@rainbow-me/rainbowkit/styles.css";
-import {
-  configureChains,
-  createClient,
-  goerli,
-  mainnet,
-  WagmiConfig,
-} from "wagmi";
-import {
-  arbitrum,
-  avalanche,
-  bsc,
-  gnosis,
-  optimism,
-  polygon,
-  gnosisChiado,
-} from "wagmi/chains";
+import { configureChains, createClient, goerli, WagmiConfig } from "wagmi";
+import { mainnet, gnosis, optimism, polygon } from "wagmi/chains";
 import { jsonRpcProvider } from "wagmi/providers/jsonRpc";
 import { publicProvider } from "wagmi/providers/public";
-
+import { scroll } from "@/blockchain/constants";
 import "@/styles/global.css";
 import Head from "next/head";
 
 const { chains, provider } = configureChains(
-  [
-    mainnet,
-    avalanche,
-    arbitrum,
-    bsc,
-    gnosis,
-    optimism,
-    polygon,
-    gnosisChiado,
-    goerli,
-  ],
+  [mainnet, gnosis, optimism, polygon, goerli, scroll],
   [
     publicProvider(),
     jsonRpcProvider({
@@ -53,7 +29,7 @@ const { chains, provider } = configureChains(
 );
 
 const { connectors } = getDefaultWallets({
-  appName: "My RainbowKit App",
+  appName: "Splitz",
   chains,
 });
 

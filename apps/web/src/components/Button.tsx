@@ -64,6 +64,36 @@ const SecondaryButton: FC<ButtonProps> = ({ children, ...props }) => {
   );
 };
 
+const TertiaryButton: FC<ButtonProps> = ({ children, ...props }) => {
+  return (
+    <button
+      type="button"
+      className={`
+        border
+        rounded-md
+        flex-1
+        hover:bg-gray-100
+        active:bg-gray-200
+      `}
+    >
+      <span
+        className={`
+          flex
+          items-center
+          justify-center
+          gap-1
+          px-4
+          py-2
+          text-sm
+          font-medium
+        `}
+      >
+        {children}
+      </span>
+    </button>
+  );
+};
+
 const IconButton: FC<ButtonProps> = ({ children, ...props }) => {
   return (
     <button
@@ -110,6 +140,7 @@ const IconButton: FC<ButtonProps> = ({ children, ...props }) => {
 const Button = {
   Primary: PrimaryButton,
   Secondary: SecondaryButton,
+  Tertiary: TertiaryButton,
   Icon: IconButton,
 };
 export default Button;

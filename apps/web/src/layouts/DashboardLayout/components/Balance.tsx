@@ -1,8 +1,7 @@
+import { textBackgroundPrimaryGradient } from "@/styles/classes";
+import Link from "next/link";
 import { FC } from "react";
 import BalanceBox from "./BalanceBox";
-import Link from "next/link";
-import Button from "@/components/Button";
-import { backgroundPrimaryGradient, backgroundPrimaryGradientHover, textBackgroundPrimaryGradient } from "@/styles/classes";
 
 interface BalanceProps {
   balanceOwed: number;

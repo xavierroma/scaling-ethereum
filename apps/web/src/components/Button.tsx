@@ -68,6 +68,8 @@ const SecondaryButton: FC<ButtonProps> = ({ children, ...props }) => {
         focus:ring-blue-300 
         enabled:dark:focus:ring-blue-800
         disabled:opacity-50
+        relative
+        active:top-px
      `}
       {...props}
     >

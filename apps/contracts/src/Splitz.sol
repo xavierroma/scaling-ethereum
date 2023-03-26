@@ -28,38 +28,24 @@ contract Splitz is Registry {
         tokenPermit = IERC20Permit(_token);
     }
 
-    function pay(
+    function payReceipt(
         uint56 receiptId,
         Permit calldata permit,
         Signature memory signature
     ) public {
-        Registry.Receipt memory receipt = Registry.getReceipt(receiptId);
+        (uint256 amountDue, address receiver) = Registry.payReceipt(receiptId);
 
-        uint256 amount = 0;
-        address receiver = receipt.owed;
-
-        for (uint i = 0; i < receipt.lines.length; i++) {
-            Registry.ReceiptLine memory line = receipt.lines[i];
-
-            if (line.owes != msg.sender) {
-                continue;
-            }
-
-            amount += line.amount;
-            line.paid = true;
-        }
-
-        require(amount > 0, "Splitz: no amount to pay");
+        require(amountDue > 0, "Splitz: no amount to pay");
 
         tokenPermit.permit(
             msg.sender,
             address(this),
-            amount,
+            amountDue,
             permit.deadline,
             signature.v,
             signature.r,
             signature.s
         );
-        token.transferFrom(msg.sender, receiver, amount);
+        token.transferFrom(msg.sender, receiver, amountDue);
     }
 }

@@ -6,7 +6,7 @@ const DashboardLayout: FC<PropsWithChildren> = ({ children }) => {
     <AppLayout
       breadcrumb={[
         {
-          label: "Dashboard",
+          label: "Splitz",
           href: "/",
         },
       ]}

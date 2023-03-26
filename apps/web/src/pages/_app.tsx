@@ -1,3 +1,4 @@
+import { AppPropsWithLayout } from "@/types/next-types";
 import "@fontsource/inter/300.css";
 import "@fontsource/inter/400.css";
 import "@fontsource/inter/500.css";
@@ -13,17 +14,17 @@ import {
   arbitrum,
   avalanche,
   bsc,
-  goerli,
   gnosis,
-  optimism,
   gnosisChiado,
+  goerli,
+  optimism,
   polygon,
 } from "wagmi/chains";
 import { alchemyProvider } from "wagmi/providers/alchemy";
 import { jsonRpcProvider } from "wagmi/providers/jsonRpc";
 import { publicProvider } from "wagmi/providers/public";
+
 import "@/styles/global.css";
-import { AppPropsWithLayout } from "@/types/next-types";
 
 const { chains, provider } = configureChains(
   [mainnet, arbitrum, bsc, gnosis, optimism, polygon, gnosisChiado, goerli],

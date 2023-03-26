@@ -1,9 +1,6 @@
 import { FC } from "react";
-import useMainnetEnsAddress from "@/hooks/useMainnetEnsAddress";
-import useMainnetEnsName from "@/hooks/useMainnetEnsName";
-import useMainnetEnsAvatar from "@hooks/useMainnetEnsAvatar";
 import makeBlockie from "ethereum-blockies-base64";
-import { getAddress } from "ethers/lib/utils.js";
+import { middleElipse } from "@/utils/middleElipse";
 
 interface AvatarAddressProps extends React.SVGAttributes<HTMLOrSVGElement> {
   address: string;
@@ -33,10 +30,3 @@ const AvatarAddress: FC<AvatarAddressProps> = ({ address, ens }) => {
 };
 
 export default AvatarAddress;
-
-function middleElipse(str: string = ""): string {
-  if (str.length > 35) {
-    return str.substr(0, 8) + "..." + str.substr(str.length - 8, str.length);
-  }
-  return str;
-}

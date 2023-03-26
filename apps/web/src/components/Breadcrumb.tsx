@@ -24,13 +24,16 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({ items, hasLogo }) => {
     : items;
 
   return (
-    <nav className="flex gap-2 text-sm font-bold space-x-1 items-center" aria-label="Breadcrumb">
+    <nav
+      className="flex gap-2 text-sm font-bold space-x-1 items-center"
+      aria-label="Breadcrumb"
+    >
       {breadcrumbItems.map((item, index) => {
         if (index === 0 && hasLogo) {
           return (
-            <React.Fragment key={index}>
+            <Link href={{ pathname: "/" }} key={index}>
               <Strikethrough02 />
-            </React.Fragment>
+            </Link>
           );
         }
 

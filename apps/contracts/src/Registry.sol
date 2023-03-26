@@ -75,7 +75,7 @@ contract Registry {
 
     function payReceipt(
         uint56 receiptId
-    ) public returns (uint256 amountDue, address receiver) {
+    ) internal returns (uint256 amountDue, address receiver) {
         Metadata memory meta = metadata[receiptId];
 
         amountDue = 0;

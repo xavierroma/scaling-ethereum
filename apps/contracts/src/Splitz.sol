@@ -28,7 +28,7 @@ contract Splitz is Registry {
         tokenPermit = IERC20Permit(_token);
     }
 
-    function pay(
+    function payReceipt(
         uint56 receiptId,
         Permit calldata permit,
         Signature memory signature

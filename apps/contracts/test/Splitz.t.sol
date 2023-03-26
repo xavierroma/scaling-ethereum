@@ -54,7 +54,7 @@ contract SplitzTest is Test, ReceiptsUtils, PermitUtils {
         uint56 receiptId = splitz.addReceipt("description", lines);
 
         vm.prank(source);
-        splitz.pay(receiptId, permit, signature);
+        splitz.payReceipt(receiptId, permit, signature);
     }
 
     function test_pay() public {
@@ -94,7 +94,7 @@ contract SplitzTest is Test, ReceiptsUtils, PermitUtils {
         uint56 receiptId = splitz.addReceipt("description", lines);
 
         vm.prank(source);
-        splitz.pay(receiptId, permit, signature);
+        splitz.payReceipt(receiptId, permit, signature);
 
         assertEq(ContractUSDC.balanceOf(receiver), amount);
         assertEq(ContractUSDC.allowance(source, address(splitz)), 0);

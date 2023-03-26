@@ -11,11 +11,11 @@ const Index: NextPageWithLayout = () => {
 
       <div className="flex gap-2">
         <Link href="/new/select-chain" passHref>
-          <Button>Request Money</Button>
+          <Button.Primary>Request Money</Button.Primary>
         </Link>
 
         <Link href="/pay/to-do" passHref>
-          <Button>Send Money</Button>
+          <Button.Primary>Send Money</Button.Primary>
         </Link>
       </div>
     </>

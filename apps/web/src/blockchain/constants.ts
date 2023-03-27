@@ -19,7 +19,7 @@ export enum Token {
 }
 
 export const TOKEN_ADDRESSES: Record<ChainId, string> = {
-  [ChainId.goerli]: "0xf06605C57289098Cb82b284c0D2Dcbc3ba84d2d0",
+  [ChainId.goerli]: "0xf06605C57289098Cb82b284c0D2Dcbc3ba84d2d0", //USDC
   [ChainId.scroll]: "0x67aE69Fd63b4fc8809ADc224A9b82Be976039509", //USDC
   [ChainId.optimism]: "0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1", //DAI
   [ChainId.gnosis]: "0xDDAfbb505ad214D7b80b1f830fcCc89B60fb7A83", //USDC
@@ -31,7 +31,7 @@ export const DEPLOYMENT_ADDRESSES: Record<ChainId, string> = {
   [ChainId.scroll]: "0xC848f8Fe46838DE0ca499283A06B45DC4a681baA",
   [ChainId.optimism]: "0xAf537337b75cB49A9a52265fa0b03128A6c74416",
   [ChainId.gnosis]: "0xAf537337b75cB49A9a52265fa0b03128A6c74416",
-  [ChainId.polygonZkEvm]: "0x24Fc2DF0c12D6B20220A665405a9Da4f6568d41f",
+  [ChainId.polygonZkEvm]: "0x6b20Df3D508f52Fc29917D98c223C224E883E0EB",
 };
 
 export const scroll: Chain = {
